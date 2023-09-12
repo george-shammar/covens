@@ -4,7 +4,7 @@ import CovenProfileArtifact from "../contracts/CovenProfile.json";
 import {Card, Button, Form, Modal} from 'react-bootstrap'
 import { NFTStorage, File } from 'nft.storage'
 import { Web3Storage } from 'web3.storage'
-import { BrowserProvider } from "ethers";
+// import { BrowserProvider } from "ethers";
 const ethers = require("ethers");
 const NFT_STORAGE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDMyNTlEMWEzNTNEMzgyNjQ4MDVmNkY4Y2NjMTY0RThFODQzM0I0MDYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzNzkzOTM1Njc5NywibmFtZSI6IkF6YW5pYSJ9.Tn3kou1OKA09gdsp0pduKzFUJGAVQ8KXk1-44pLWH9w";
 const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
@@ -53,43 +53,43 @@ const CreateProfile = () => {
   };
 
   async function mint() {
-    const {handle} = formInput;
-    const provider = new BrowserProvider(window.ethereum);
-    const signer = await provider.getSigner();
+    // const {handle} = formInput;
+    // const provider = new BrowserProvider(window.ethereum);
+    // const signer = await provider.getSigner();
     
-    const contract = new ethers.Contract(contractAddress.CovenProfile, CovenProfileArtifact.abi, signer);
+    // const contract = new ethers.Contract(contractAddress.CovenProfile, CovenProfileArtifact.abi, signer);
     
-    try {
-      const client = new NFTStorage({ token: NFT_STORAGE_KEY });
-        setStatus("Creating your profile...")
-        const metadata = await client.store({
-          name: handle,
-          image: rawFile,
-          description: "Coven profile",
-        });
+    // try {
+    //   const client = new NFTStorage({ token: NFT_STORAGE_KEY });
+    //     setStatus("Creating your profile...")
+    //     const metadata = await client.store({
+    //       name: handle,
+    //       image: rawFile,
+    //       description: "Coven profile",
+    //     });
       
-        const metadataURI = metadata.url;
+    //     const metadataURI = metadata.url;
 
-      setStatus("Creating your Coven profile...");
+    //   setStatus("Creating your Coven profile...");
       
-      const transaction = await contract.createCoven(handle, fileUrl, metadataURI );
+    //   const transaction = await contract.createCoven(handle, fileUrl, metadataURI );
 
-      setStatus("Blockchain transaction sent, awaiting confirmation...");
+    //   setStatus("Blockchain transaction sent, awaiting confirmation...");
 
-      const receipt = await transaction.wait();
-      if (receipt.status === 0) {
-          throw new Error("Transaction failed");
-      } else {
-        setStatus("Profile created successfully! You may close this box.");
-      }
-    } catch (error) {
-      if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
-        return;
-      }
-      console.error(error);
-    } finally {
+    //   const receipt = await transaction.wait();
+    //   if (receipt.status === 0) {
+    //       throw new Error("Transaction failed");
+    //   } else {
+    //     setStatus("Profile created successfully! You may close this box.");
+    //   }
+    // } catch (error) {
+    //   if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+    //     return;
+    //   }
+    //   console.error(error);
+    // } finally {
 
-    }
+    // }
 
   }
 

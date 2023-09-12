@@ -22,16 +22,51 @@ import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
 import { Web3Modal } from '@web3modal/react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygonMumbai, polygon } from 'wagmi/chains'
+import { InjectedConnector } from 'wagmi/connectors/injected';
+import { publicProvider } from 'wagmi/providers/public';
+import { LensConfig, development } from '@lens-protocol/react-web';
+import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
+import { LensProvider } from '@lens-protocol/react-web';
 
 const chains = [polygonMumbai, polygon]
 const projectId = 'cb3181e63c53b999fc097379f564d554';
 
-const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
+// const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
+const { publicClient, webSocketPublicClient } = configureChains(
+  [polygonMumbai, polygon],
+  [publicProvider()],
+);
+
+const config = createConfig({
+  autoConnect: true,
+  publicClient,
+  webSocketPublicClient,
+  connectors: [
+    new InjectedConnector({
+      options: {
+        shimDisconnect: false,
+      },
+    }),
+  ],
+});
+
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors: w3mConnectors({ projectId, chains }),
   publicClient
-})
+});
+
+// const lensConfig: LensConfig = {
+//   bindings: wagmiBindings(),
+//   environment: development,
+// };
+
+const lensConfig = {
+  bindings: wagmiBindings(),
+  environment: development,
+};
+
+
 const ethereumClient = new EthereumClient(wagmiConfig, chains)
 
 const router = createBrowserRouter([
@@ -43,12 +78,14 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <StrictMode>
     <WagmiConfig config={wagmiConfig}>
+      <LensProvider config={lensConfig}>
         <Provider store={store}>
         <App>
           <RouterProvider router={router}>
           </RouterProvider>
           </App>
         </Provider>
+      </LensProvider>
     </WagmiConfig>
     <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
   </StrictMode>

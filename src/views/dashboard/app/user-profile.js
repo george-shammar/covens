@@ -6,7 +6,7 @@ import ShareOffcanvas from '../../../components/share-offcanvas'
 import {Link} from 'react-router-dom'
 import ReactFsLightbox from 'fslightbox-react';
 import { useAccount } from 'wagmi';
-import { BrowserProvider } from "ethers";
+// import { BrowserProvider } from "ethers";
 import contractAddress from "../../../contracts/contract-address.json";
 import CovenProfileArtifact from "../../../contracts/CovenProfile.json";
 
@@ -114,25 +114,25 @@ const UserProfile =() =>{
   }
 
   async function profile() {
-   const provider = new BrowserProvider(window.ethereum);
-   const signer = await provider.getSigner();
+   // const provider = new BrowserProvider(window.ethereum);
+   // const signer = await provider.getSigner();
 
-   const contract = new ethers.Contract(contractAddress.CovenProfile, CovenProfileArtifact.abi, signer);
+   // const contract = new ethers.Contract(contractAddress.CovenProfile, CovenProfileArtifact.abi, signer);
    
-   try {
-     const transaction = contract.getOwnerCovens(address);
+   // try {
+   //   const transaction = contract.getOwnerCovens(address);
 
-   const receipt = await transaction;
-   let coven = receipt[receipt.length-1];
-   setProfile(coven)
-   } catch (error) {
-     if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
-       return;
-     }
-     console.error(error);
-   } finally {
+   // const receipt = await transaction;
+   // let coven = receipt[receipt.length-1];
+   // setProfile(coven)
+   // } catch (error) {
+   //   if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
+   //     return;
+   //   }
+   //   console.error(error);
+   // } finally {
 
-   }
+   // }
  }
 
   return(
