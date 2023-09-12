@@ -3,12 +3,11 @@ import {Row, Col, Container, Dropdown, Nav, Tab, OverlayTrigger, Tooltip, Button
 import Card from '../../../components/Card'
 import CustomToggle from '../../../components/dropdowns'
 import ShareOffcanvas from '../../../components/share-offcanvas'
-import {Link} from 'react-router-dom'
+import {Link, useParams} from 'react-router-dom'
 import ReactFsLightbox from 'fslightbox-react';
 import { useAccount } from 'wagmi';
 // import { BrowserProvider } from "ethers";
-import contractAddress from "../../../contracts/contract-address.json";
-import CovenProfileArtifact from "../../../contracts/CovenProfile.json";
+import { useProfile, usePublications, Profile } from "@lens-protocol/react-web";
 
 // images
 import img1 from '../../../assets/images/page-img/profile-bg1.jpg'
@@ -96,10 +95,9 @@ const UserProfile =() =>{
    const handleShow = () => setShow(true);
    const [profil, setProfile] = useState({});
    const { address } = useAccount();
+   let { handle } = useParams();
 
-   useEffect(() => {
-      profile();
-    }, []);
+   let { data: profile, loading } = useProfile({ handle });
 
    const [imageController, setImageController] = useState({
       toggler: false,
@@ -113,7 +111,7 @@ const UserProfile =() =>{
       }); 
   }
 
-  async function profile() {
+//   async function profile() {
    // const provider = new BrowserProvider(window.ethereum);
    // const signer = await provider.getSigner();
 
@@ -133,7 +131,9 @@ const UserProfile =() =>{
    // } finally {
 
    // }
- }
+//  }
+
+ if (loading) return <p className="p-14">Loading ...</p>;
 
   return(
       <>
@@ -168,11 +168,19 @@ const UserProfile =() =>{
                            </div>
                            <div className="user-detail text-center mb-3">
                               <div className="profile-img">
-                                 <img loading="lazy" src={profil[2]} alt="profile-img1" className="avatar-130 img-fluid" />
+                                 {profile?.picture?.__typename === "MediaSet" && (
+                                 <img
+                                    loading="lazy"
+                                    src={profile.picture.original.url}
+                                    alt={handle}
+                                    className="avatar-130 img-fluid"
+                                 />
+                              )}
                               </div>
                               <div className="profile-detail">
                                  <h3>{profil[1]}</h3>
                               </div>
+                              
                            </div>
                            <div className="profile-info p-3 d-flex align-items-center justify-content-between position-relative">
                               <div className="social-links">

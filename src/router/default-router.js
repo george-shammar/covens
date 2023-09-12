@@ -84,7 +84,7 @@ export const DefaultRouter = [
     element: <Index />,
   },
   {
-    path: "dashboard/app/profile",
+    path: "dashboard/app/profile/:handle",
     element: <UserProfile />,
   },
   {
