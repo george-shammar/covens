@@ -179,9 +179,7 @@ const UserProfile =() =>{
                               </div>
                               <div className="profile-detail">
                                  <h3>{profile?.handle}</h3>
-                                 <h6>{profile?.bio}</h6>
                               </div>
-                              
                            </div>
                            <div className="profile-info p-3 d-flex align-items-center justify-content-between position-relative">
                               <div className="social-links">
@@ -195,15 +193,12 @@ const UserProfile =() =>{
                                     <li className="text-center pe-3">
                                        <Link to="#"><img loading="lazy" src={img5} className="img-fluid rounded" alt="Instagram"/></Link>
                                     </li>
-                                    {/* <li className="text-center pe-3">
-                                       <Link to="#"><img loading="lazy" src={img6} className="img-fluid rounded" alt="Google plus"/></Link>
-                                    </li> */}
                                     <li className="text-center pe-3">
                                        <Link to="#"><img loading="lazy" src={img7} className="img-fluid rounded" alt="You tube"/></Link>
                                     </li>
-                                    {/* <li className="text-center md-pe-3 pe-0">
+                                    <li className="text-center md-pe-3 pe-0">
                                        <Link to="#"><img loading="lazy" src={img8} className="img-fluid rounded" alt="linkedin"/></Link>
-                                    </li> */}
+                                    </li>
                                  </ul>
                               </div>
                               <div className="social-info">
@@ -228,6 +223,16 @@ const UserProfile =() =>{
                   </Card>
                </Col>
                <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+                  <Card className="p-0">
+                     <Card.Body className="p-0">
+                        <div className="user-tabing">
+                           <Nav as="ul" variant="pills" className="d-flex align-items-center justify-content-center profile-feed-items p-0 m-0">
+                             <h6 className=" text-center p-3">{profile?.bio}</h6>
+                           </Nav>
+                        </div>
+                     </Card.Body>
+                  </Card>
+
                   <Card className="p-0">
                      <Card.Body className="p-0">
                         <div className="user-tabing">
