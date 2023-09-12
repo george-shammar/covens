@@ -1,0 +1,97 @@
+{
+  "name": "socialv-ui-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "@fullcalendar/bootstrap": "^5.9.0",
+    "@fullcalendar/core": "^5.9.0",
+    "@fullcalendar/daygrid": "^5.9.0",
+    "@fullcalendar/list": "^5.9.0",
+    "@fullcalendar/react": "^5.9.0",
+    "@openzeppelin/contracts": "^4.9.3",
+    "@reduxjs/toolkit": "^1.8.1",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@web3modal/ethereum": "^2.7.1",
+    "@web3modal/react": "^2.7.1",
+    "apexcharts": "^3.35.3",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
+    "e": "^0.2.33",
+    "ethers": "^6.4.0",
+    "fullcalendar-interaction": "^5.3.3",
+    "graphql": "^16.6.0",
+    "ipfs-http-client": "^60.0.1",
+    "jquery": "^3.6.0",
+    "leaflet": "^1.7.1",
+    "nft.storage": "^7.1.1",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.0",
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "react-id-swiper": "^4.0.0",
+    "react-leaflet": "^4.2.0",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "^5.0.1",
+    "react-select": "^5.2.2",
+    "react-slider-swiper": "^2.0.6",
+    "react-transition-group": "^4.4.2",
+    "redux": "^4.1.1",
+    "sass": "1.39.0",
+    "sass-loader": "^12.1.0",
+    "smooth-scrollbar": "^8.6.3",
+    "sweetalert2": "^11.1.5",
+    "swiper": "^8.3.0",
+    "typescript": "^5.1.6",
+    "urql": "^4.0.2",
+    "vanillajs-datepicker": "^1.2.0",
+    "viem": "^1.5.0",
+    "wagmi": "^1.3.9",
+    "web-vitals": "^1.1.2",
+    "web3.storage": "^4.5.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.0",
+    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^3.0.0",
+    "@nomicfoundation/hardhat-verify": "^1.0.0",
+    "@typechain/ethers-v6": "^0.4.0",
+    "@typechain/hardhat": "^8.0.0",
+    "chai": "^4.2.0",
+    "fslightbox-react": "^1.6.2-2",
+    "hardhat": "^2.14.0",
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "^0.8.0",
+    "sortablejs": "^1.14.0",
+    "typechain": "^8.1.0"
+  }
+}
