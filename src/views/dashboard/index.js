@@ -1,5 +1,4 @@
-import React, {useState, useEffect}  from 'react'
-import { client, recommendProfiles } from '../../api';
+import React, {useState}  from 'react'
 import { Row, Col, Container, Dropdown, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Card from '../../components/Card'
