@@ -93,11 +93,23 @@ const UserProfile =() =>{
    const [show, setShow] = useState(false);
    const handleClose = () => setShow(false);
    const handleShow = () => setShow(true);
-   const [profil, setProfile] = useState({});
    const { address } = useAccount();
    let { handle } = useParams();
 
    let { data: profile, loading } = useProfile({ handle });
+
+   // let { data: publications } = usePublications({
+   //    profileId: profile.id,
+   //    limit: 10,
+   //  });
+
+   //  publications = publications?.map((publication) => {
+   //    if (publication.__typename === "Mirror") {
+   //      return publication.mirrorOf;
+   //    } else {
+   //      return publication;
+   //    }
+   //  });
 
    const [imageController, setImageController] = useState({
       toggler: false,
@@ -382,6 +394,7 @@ const UserProfile =() =>{
                                     </Card>
                                  </Col>
                                  <Col lg={8}>
+                                 {address? (
                                     <Card id="post-modal-data" >
                                        <div className="card-header d-flex justify-content-between">
                                           <div className="header-title">
@@ -391,7 +404,12 @@ const UserProfile =() =>{
                                        <Card.Body>
                                           <div className="d-flex align-items-center">
                                              <div className="user-img">
-                                                <img loading="lazy" src={user1} alt="userimg" className="avatar-60 rounded-circle"/>
+                                                   <img
+                                                         loading="lazy"
+                                                         src={profile.picture.original.url}
+                                                         alt={handle}
+                                                         className="rounded-circle  avatar-60"
+                                                      />
                                              </div>
                                              <form className="post-text ms-3 w-100 " onClick={handleShow}>
                                                 <input type="text" className="form-control rounded" placeholder="Write something here..." style={{border:"none"}}/>
@@ -523,19 +541,34 @@ const UserProfile =() =>{
                                         </Modal.Body>
                                     </Modal>
                                     </Card>
+                                 ) : (
+                                    <></>
+                                 )}
+                                 {/* <img
+                                    loading="lazy"
+                                    src={profile.picture.original.url}
+                                    alt={handle}
+                                    className="avatar-130 img-fluid"
+                                 />
+                              )} */}
+                                    
                                     <Card>
                                        <Card.Body>
                                           <div className="post-item">
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
-                                                      <img loading="lazy" className="rounded-circle  avatar-60" src={user1} alt=""/>
+                                                      <img
+                                                         loading="lazy"
+                                                         src={profile.picture.original.url}
+                                                         alt={handle}
+                                                         className="rounded-circle  avatar-60"
+                                                      />
                                                    </div>
                                                    <div className="w-100">
                                                       <div className="d-flex justify-content-between flex-wrap">
                                                          <div>
-                                                            <h5 className="mb-0 d-inline-block"><Link to="#">Bni Cyst</Link></h5>
-                                                            <p className="ms-1 mb-0 d-inline-block">Add New Post</p>
+                                                            <h5 className="mb-0 d-inline-block">{profile?.handle}</h5>
                                                             <p className="mb-0">3 hour ago</p>
                                                          </div>
                                                          <div className="card-post-toolbar">
