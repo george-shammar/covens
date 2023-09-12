@@ -96,6 +96,18 @@ const UserProfile =() =>{
    const { address } = useAccount();
    let { handle } = useParams();
 
+   const [imageController, setImageController] = useState({
+      toggler: false,
+      slide: 1
+  });
+  
+  function imageOnSlide(number) {
+      setImageController({
+      toggler: !imageController.toggler,
+      slide: number
+      }); 
+  }
+
    let { data: profile, loading } = useProfile({ handle });
 
    // let { data: publications } = usePublications({
@@ -111,17 +123,7 @@ const UserProfile =() =>{
    //    }
    //  });
 
-   const [imageController, setImageController] = useState({
-      toggler: false,
-      slide: 1
-  });
-  
-  function imageOnSlide(number) {
-      setImageController({
-      toggler: !imageController.toggler,
-      slide: number
-      }); 
-  }
+    if (loading) return <p className="p-14">Loading ...</p>;
 
 //   async function profile() {
    // const provider = new BrowserProvider(window.ethereum);
@@ -144,8 +146,6 @@ const UserProfile =() =>{
 
    // }
 //  }
-
- if (loading) return <p className="p-14">Loading ...</p>;
 
   return(
       <>
@@ -543,15 +543,7 @@ const UserProfile =() =>{
                                     </Card>
                                  ) : (
                                     <></>
-                                 )}
-                                 {/* <img
-                                    loading="lazy"
-                                    src={profile.picture.original.url}
-                                    alt={handle}
-                                    className="avatar-130 img-fluid"
-                                 />
-                              )} */}
-                                    
+                                 )} 
                                     <Card>
                                        <Card.Body>
                                           <div className="post-item">
