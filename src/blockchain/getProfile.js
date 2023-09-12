@@ -78,7 +78,7 @@ const GetProfile = ({address}) => {
                 line_style
               </span>
               <div className="ms-3">
-                <Link to="/dashboard/app/profile" className="mb-0 h6">
+                <Link to={`/dashboard/app/profile/${profile.handle}`} className="mb-0 h6">
                   My Profile
                 </Link>
               </div>

@@ -1151,7 +1151,6 @@ const Index = () => {
                                     <div>
                                         {
                                             profiles?.map((profile, index) => (
-                                                // <Link to="/dashboard/app/profile" className="mb-0 h6">
                                                 <Link to={`/dashboard/app/profile/${profile.handle}`} key={index} className="mb-0 h6">
                                                     <li className="d-flex mb-3 align-items-center active" key={index}>
                                                     {
