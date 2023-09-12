@@ -178,7 +178,8 @@ const UserProfile =() =>{
                               )}
                               </div>
                               <div className="profile-detail">
-                                 <h3>{profil[1]}</h3>
+                                 <h3>{profile?.handle}</h3>
+                                 <h6>{profile?.bio}</h6>
                               </div>
                               
                            </div>
@@ -194,15 +195,15 @@ const UserProfile =() =>{
                                     <li className="text-center pe-3">
                                        <Link to="#"><img loading="lazy" src={img5} className="img-fluid rounded" alt="Instagram"/></Link>
                                     </li>
-                                    <li className="text-center pe-3">
+                                    {/* <li className="text-center pe-3">
                                        <Link to="#"><img loading="lazy" src={img6} className="img-fluid rounded" alt="Google plus"/></Link>
-                                    </li>
+                                    </li> */}
                                     <li className="text-center pe-3">
                                        <Link to="#"><img loading="lazy" src={img7} className="img-fluid rounded" alt="You tube"/></Link>
                                     </li>
-                                    <li className="text-center md-pe-3 pe-0">
+                                    {/* <li className="text-center md-pe-3 pe-0">
                                        <Link to="#"><img loading="lazy" src={img8} className="img-fluid rounded" alt="linkedin"/></Link>
-                                    </li>
+                                    </li> */}
                                  </ul>
                               </div>
                               <div className="social-info">
