@@ -1149,42 +1149,22 @@ const Index = () => {
                                         </div>
                                     </li>
                                     <div>
-                                        {/* {
-                                        profiles.map((profile, index) =>(
-                                            <li className="d-flex mb-3 align-items-center active" key={index}>
-                                                {
-                                                profile.picture ? (
-                                                    <img src={profile.picture.original.url} alt="profile picture" className="rounded-circle img-fluid"/>
-                                                ) : (
-                                                    <img src={s2} alt="story-img" className="rounded-circle img-fluid"/>
-                                                )
-                                                }
-                                            
-                                            <div className="stories-data ms-3">
-                                                <h5>{profile.handle}</h5>
-                                            </div>
-                                            </li>
-                                       ))
-                                        } */}
-
-
-{
-        profiles?.map((profile, index) => (
-            <li className="d-flex mb-3 align-items-center active" key={index}>
-              {
-                profile.picture && profile.picture.__typename === 'MediaSet' ? (
-                    <img src={profile.picture.original.url} alt={profile.handle} className="rounded-circle img-fluid"/>
-                ) : <img src={s2} alt="story-img" className="rounded-circle img-fluid"/>
-              }
-              <div className="stories-data ms-3">
-                <h5>{profile.handle}</h5>
-              </div>
-            </li>
-        ))
-      }
-
-
-
+                                        {
+                                            profiles?.map((profile, index) => (
+                                                <Link to="/dashboard/app/profile" className="mb-0 h6">
+                                                    <li className="d-flex mb-3 align-items-center active" key={index}>
+                                                    {
+                                                        profile.picture && profile.picture.__typename === 'MediaSet' ? (
+                                                            <img src={profile.picture.original.url} alt={profile.handle} className="rounded-circle img-fluid"/>
+                                                        ) : <img src={s2} alt="story-img" className="rounded-circle img-fluid"/>
+                                                    }
+                                                    <div className="stories-data ms-3">
+                                                        <h5>{profile.handle}</h5>
+                                                    </div>
+                                                    </li>
+                                                </Link>
+                                                ))
+                                            }
                                     </div>
                                 </ul>
                                 {/* <Link to="#" className="btn btn-primary d-block mt-3">See All</Link> */}
