@@ -7,6 +7,7 @@ import CustomToggle from '../../components/dropdowns'
 import ShareOffcanvas from '../../components/share-offcanvas'
 import { useWeb3Modal } from '@web3modal/react';
 import { useAccount } from 'wagmi';
+import { useExploreProfiles } from '@lens-protocol/react-web'
 
 //image
 import user1 from '../../assets/images/user/1.jpg'
@@ -49,7 +50,9 @@ const Index = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [profiles,  setProfiles] = useState([])
+    const { data: profiles } = useExploreProfiles({
+        limit: 5
+    })
 
     const { address } = useAccount();
   
@@ -1135,7 +1138,7 @@ const Index = () => {
                         <Card>
                             <div className="card-header d-flex justify-content-between">
                                 <div className="header-title">
-                                    <h4 className="card-title">Featured</h4>
+                                    <h4 className="card-title">Recommended Profiles</h4>
                                 </div>
                             </div>
                             <Card.Body>
@@ -1147,7 +1150,7 @@ const Index = () => {
                                         </div>
                                     </li>
                                     <div>
-                                        {
+                                        {/* {
                                         profiles.map((profile, index) =>(
                                             <li className="d-flex mb-3 align-items-center active" key={index}>
                                                 {
@@ -1163,7 +1166,26 @@ const Index = () => {
                                             </div>
                                             </li>
                                        ))
-                                        }
+                                        } */}
+
+
+{
+        profiles?.map((profile, index) => (
+            <li className="d-flex mb-3 align-items-center active" key={index}>
+              {
+                profile.picture && profile.picture.__typename === 'MediaSet' ? (
+                    <img src={profile.picture.original.url} alt={profile.handle} className="rounded-circle img-fluid"/>
+                ) : <img src={s2} alt="story-img" className="rounded-circle img-fluid"/>
+              }
+              <div className="stories-data ms-3">
+                <h5>{profile.handle}</h5>
+              </div>
+            </li>
+        ))
+      }
+
+
+
                                     </div>
                                 </ul>
                                 {/* <Link to="#" className="btn btn-primary d-block mt-3">See All</Link> */}
