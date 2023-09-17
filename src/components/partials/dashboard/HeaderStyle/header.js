@@ -12,7 +12,13 @@ import {
 
 import { Link } from "react-router-dom";
 import { useWeb3Modal } from '@web3modal/react';
-import { useAccount } from 'wagmi';
+import {
+  useWalletLogin,
+  useWalletLogout,
+  useActiveProfile,
+} from "@lens-protocol/react-web";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 //image
 import user1 from "../../../../assets/images/user/1.jpg";
