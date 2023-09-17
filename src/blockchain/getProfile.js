@@ -7,16 +7,10 @@ import {
   } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomToggle from "../components/dropdowns";
-// import { BrowserProvider } from "ethers";
 import {
   useWalletLogout,
   useActiveProfile,
 } from "@lens-protocol/react-web";
-import { useAccount, useConnect, useDisconnect } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
-
-
-
 
 const GetProfile = ({address}) => {
   const { execute: logout } = useWalletLogout();
