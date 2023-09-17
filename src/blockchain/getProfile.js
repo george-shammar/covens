@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
-import contractAddress from "../contracts/contract-address.json";
-import CovenProfileArtifact from "../contracts/CovenProfile.json";
 import {  
   Dropdown,
   Card,
+  Button,
   Image,
   } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CustomToggle from "../components/dropdowns";
 // import { BrowserProvider } from "ethers";
-const ethers = require("ethers");
+import {
+  useWalletLogout,
+  useActiveProfile,
+} from "@lens-protocol/react-web";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
-const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
+
+
 
 const GetProfile = ({address}) => {
-  const [profil, setProfile] = useState({});
+  const { execute: logout } = useWalletLogout();
+  const { data: wallet, loading } = useActiveProfile();
 
   useEffect(() => {
     profile();
@@ -43,12 +49,9 @@ const GetProfile = ({address}) => {
 
   }
 
-  if (!profil) {
-      return (<></>);
-  }
-
   return(
     <>
+     {wallet && !loading && (
       <Dropdown as="li" className="nav-item user-dropdown">
       <Dropdown.Toggle
         href="#"
@@ -56,20 +59,20 @@ const GetProfile = ({address}) => {
         variant="d-flex align-items-center"
       >
         <Image
-          src={profil[2]}
+          src={wallet.picture.original.url}
           className="img-fluid rounded-circle me-3"
-          alt="user"
+          alt={wallet.handle}
           loading="lazy" />
 
         <div className="caption d-none d-lg-block">
-          <h6 className="mb-0 line-height">{profil[1]}</h6>
+          <h6 className="mb-0 line-height">{wallet.handle}</h6>
         </div>
       </Dropdown.Toggle>
       <Dropdown.Menu className="sub-drop caption-menu">
         <Card className="shadow-none m-0">
           <Card.Header>
             <div className="header-title">
-              <h5 className="mb-0 ">Hello {profil[1]}</h5>
+              <h5 className="mb-0 ">Hello {wallet.handle}</h5>
             </div>
           </Card.Header>
           <Card.Body className="p-0 ">
@@ -120,9 +123,9 @@ const GetProfile = ({address}) => {
             <div className="d-flex align-items-center iq-sub-card">
               <span className="material-symbols-outlined">login</span>
               <div className="ms-3">
-                <Link to="/auth/sign-in" className="mb-0 h6">
+                <Button className="mb-0 h6" onClick={logout}>
                   Sign out
-                </Link>
+                </Button>
               </div>
             </div>
             <div className=" iq-sub-card">
@@ -156,8 +159,8 @@ const GetProfile = ({address}) => {
         </Card>
       </Dropdown.Menu>
     </Dropdown>
-                  
-    </>
+    )}        
+  </>
   )
 }
 

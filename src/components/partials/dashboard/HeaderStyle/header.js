@@ -1369,7 +1369,7 @@ const Header = () => {
                       "..." +
                       String(address).substring(38)}
                   </Button>
-                  <Button className="mx-1" variant="primary" onClick={() => open()}>Log In</Button>
+                  <Button className="mx-1" variant="primary" disabled={isLoginPending} onClick={onLoginClick}>Log In</Button>
                 </Dropdown>
                 <div>
                   <GetProfile address={address}/>
