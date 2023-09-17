@@ -55,6 +55,31 @@ const Header = () => {
   const handleShow = () => setShow(true);
 
   const { address } = useAccount();
+  const { execute: login, isPending: isLoginPending } = useWalletLogin();
+  const { execute: logout } = useWalletLogout();
+  const { data: wallet, loading } = useActiveProfile();
+  const { isConnected } = useAccount();
+  const { disconnectAsync } = useDisconnect();
+
+  const { connectAsync } = useConnect({
+    connector: new InjectedConnector(),
+  });
+
+  const onLoginClick = async () => {
+    if (isConnected) {
+      await disconnectAsync();
+    }
+
+    const { connector } = await connectAsync();
+
+    if (connector instanceof InjectedConnector) {
+      const walletClient = await connector.getWalletClient();
+
+      await login({
+        address: walletClient.account.address,
+      });
+    }
+  };
 
   return (
     <>
@@ -1344,15 +1369,16 @@ const Header = () => {
                       "..." +
                       String(address).substring(38)}
                   </Button>
+                  <Button className="mx-1" variant="primary" onClick={() => open()}>Log In</Button>
                 </Dropdown>
                 <div>
                   <GetProfile address={address}/>
                 </div>
-                  </>
+              </>
             ) : (
               <>
                 <Dropdown className="mt-lg-3">
-                  <Button variant="primary" onClick={() => open()}>Log In</Button>
+                  <Button variant="primary" onClick={() => open()}>Connect</Button>
                 </Dropdown>
               </>
               
