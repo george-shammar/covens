@@ -86,15 +86,11 @@ import img63 from '../../../assets/images/page-img/63.jpg'
 
 // Fslightbox plugin
 const FsLightbox = ReactFsLightbox.default ? ReactFsLightbox.default : ReactFsLightbox;
-const ethers = require("ethers");
-const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
 const UserProfile =() =>{
    const [show, setShow] = useState(false);
    const handleClose = () => setShow(false);
    const handleShow = () => setShow(true);
-   const [profil, setProfile] = useState({});
-   const { address } = useAccount();
    let { handle } = useParams();
 
    let { data: profile, loading } = useProfile({ handle });
@@ -110,7 +106,26 @@ const UserProfile =() =>{
       slide: number
       }); 
   }
+          
+     
+         let { publications } = usePublications({
+            profileId: profile.id,
+            limit: 10,
+         });
 
+   if(profile) {
+       publications = publications?.map((publication) => {
+         if (publication.__typename === "Mirror") {
+           return publication.mirrorOf;
+         } else {
+           return publication;
+         }
+       });
+      }
+            
+
+
+  
 //   async function profile() {
    // const provider = new BrowserProvider(window.ethereum);
    // const signer = await provider.getSigner();
@@ -523,22 +538,44 @@ const UserProfile =() =>{
                                         </Modal.Body>
                                     </Modal>
                                     </Card>
+                                    {/* <Card>
+                                    {publications?.map((pub, index) => (
+                                       <div key={index} className="py-4 bg-zinc-900 rounded mb-3 px-4">
+                                          <p>{pub.metadata.content}</p>
+                                          {console.log(pub.metadata)}
+                                          {pub.metadata?.media[0]?.original &&
+                                             ["image/jpeg", "image/png"].includes(
+                                             pub.metadata?.media[0]?.original.mimeType
+                                             ) && (
+                                             <img
+                                                width="400"
+                                                height="400"
+                                                alt={profile.handle}
+                                                className="rounded-xl mt-6 mb-2"
+                                                src={pub.metadata.media[0].original.url}
+                                             />
+                                             )}
+                                       </div>
+                                       ))}
+                                    </Card> */}
                                     <Card>
+                                     {publications?.map((pub, index) => (
                                        <Card.Body>
-                                          <div className="post-item">
+                                          <div className="post-item" key={index}>
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
-                                                      <img loading="lazy" className="rounded-circle  avatar-60" src={user1} alt=""/>
+                                                      <img loading="lazy" className="rounded-circle  avatar-60" src={profile.picture.original.url} alt={profile.handle}/>
                                                    </div>
                                                    <div className="w-100">
                                                       <div className="d-flex justify-content-between flex-wrap">
                                                          <div>
-                                                            <h5 className="mb-0 d-inline-block"><Link to="#">Bni Cyst</Link></h5>
-                                                            <p className="ms-1 mb-0 d-inline-block">Add New Post</p>
+                                                            <h5 className="mb-0 d-inline-block">{profile.handle}</h5>
+                                                            <p className="ms-1 mb-0 d-inline-block">{pub.metadata.locale}</p>
                                                             <p className="mb-0">3 hour ago</p>
                                                          </div>
-                                                         <div className="card-post-toolbar">
+                                                 
+                                                         {/* <div className="card-post-toolbar">
                                                             <Dropdown>
                                                                <Dropdown.Toggle className="bg-transparent border-white">
                                                                <span className="material-symbols-outlined">
@@ -593,7 +630,7 @@ const UserProfile =() =>{
                                                                   </Dropdown.Item>
                                                                </Dropdown.Menu>
                                                             </Dropdown>
-                                                         </div>
+                                                         </div> */}
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1236,6 +1273,7 @@ const UserProfile =() =>{
                                              </div>
                                           </div>
                                        </Card.Body>
+                                     ))}
                                     </Card>
                                  </Col>
                               </Row>

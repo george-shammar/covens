@@ -14,11 +14,9 @@ import {
 
 const GetProfile = ({address}) => {
   const { execute: logout } = useWalletLogout();
-  const { data: wallet, loading } = useActiveProfile();
 
-  useEffect(() => {
-    profile();
-  }, []);
+  
+
 
   async function profile() {
     // const provider = new BrowserProvider(window.ethereum);
@@ -45,7 +43,7 @@ const GetProfile = ({address}) => {
 
   return(
     <>
-     {wallet && !loading && (
+     {/* {wallet && !loading && (
       <Dropdown as="li" className="nav-item user-dropdown">
       <Dropdown.Toggle
         href="#"
@@ -153,7 +151,7 @@ const GetProfile = ({address}) => {
         </Card>
       </Dropdown.Menu>
     </Dropdown>
-    )}        
+    )}         */}
   </>
   )
 }

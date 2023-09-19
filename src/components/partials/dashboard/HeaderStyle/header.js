@@ -57,9 +57,21 @@ const Header = () => {
   const { address } = useAccount();
   const { execute: login, isPending: isLoginPending } = useWalletLogin();
   const { execute: logout } = useWalletLogout();
-  const { data: wallet, loading } = useActiveProfile();
+  const { data, error, loading } = useActiveProfile();
+
   const { isConnected } = useAccount();
   const { disconnectAsync } = useDisconnect();
+
+
+  if (loading) {
+    console.log("loading")
+  } else if (error) {
+    console.log(error.message)
+  } else if (data === null) {
+    console.log("No active profile selected")
+  } else {
+    console.log(data.handle)
+  }
 
   const { connectAsync } = useConnect({
     connector: new InjectedConnector(),
@@ -1363,17 +1375,25 @@ const Header = () => {
               
            {address && address.length > 0 ? (
               <>
-              <Dropdown className="mt-lg-3">
+                <Dropdown className="mt-lg-3">
                   <Button variant="primary" onClick={() => open()}>
                     {String(address).substring(0, 6) +
                       "..." +
                       String(address).substring(38)}
                   </Button>
-                  <Button className="mx-1" variant="primary" disabled={isLoginPending} onClick={onLoginClick}>Log In</Button>
+                  {!data ? (
+                    <Button className="mx-1" variant="primary" disabled={isLoginPending} onClick={onLoginClick}>
+                    Log In
+                  </Button>
+                  ) : (
+                    <div>
+                      <GetProfile address={data}/>
+                    </div>
+                  )}
+                  
+
                 </Dropdown>
-                <div>
-                  <GetProfile address={address}/>
-                </div>
+                
               </>
             ) : (
               <>

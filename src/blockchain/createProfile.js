@@ -32,6 +32,7 @@ const CreateProfile = () => {
     const {formHandle} = formInput;
     if (formHandle) {
       await create(formHandle);
+      console.log("======create profile called======")
     } else {
       console.log(error)
     }
