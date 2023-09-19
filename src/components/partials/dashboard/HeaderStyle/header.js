@@ -92,18 +92,7 @@ const Header = () => {
   useEffect(() => {
     configUrl();
   }, []);
-
-  console.log(image)
   
-  // if(data) {
-  //   const rawUrl = data.picture.original.url
-  //   const ipfsBaseUrl = "https://ipfs.io/ipfs/";
-  //   const formattedString = rawUrl.replace("ipfs://", "");
-  //   const url = ipfsBaseUrl + formattedString;
-  //   setImage(url);
-  // }
-  
-
   return (
     <>
       <div className="iq-top-navbar">
@@ -1394,8 +1383,8 @@ const Header = () => {
                   </Button>
                   {!data ? (
                     <Button className="mx-1" variant="primary" disabled={isLoginPending} onClick={onLoginClick}>
-                    Log In
-                  </Button>
+                      Log In
+                    </Button>
                   ) : (
                     <div>
                       <Dropdown as="li" className="nav-item user-dropdown">
@@ -1426,9 +1415,9 @@ const Header = () => {
                                   line_style
                                 </span>
                                 <div className="ms-3">
-                                  {/* <Link to={`/dashboard/app/profile/${profile.handle}`} className="mb-0 h6">
+                                  <Link to={`/dashboard/app/profile/${data.handle}`} className="mb-0 h6">
                                     My Profile
-                                  </Link> */}
+                                  </Link>
                                 </div>
                               </div>
                               <div className="d-flex align-items-center iq-sub-card border-0">
