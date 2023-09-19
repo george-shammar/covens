@@ -108,22 +108,22 @@ const UserProfile =() =>{
   }
           
      
-         let { publications } = usePublications({
-            profileId: profile.id,
-            limit: 10,
-         });
+   //       let { publications } = usePublications({
+   //          profileId: profile.id,
+   //          limit: 10,
+   //       });
 
-   if(profile) {
-       publications = publications?.map((publication) => {
-         if (publication.__typename === "Mirror") {
-           return publication.mirrorOf;
-         } else {
-           return publication;
-         }
-       });
-      }
-            
+   // if(profile) {
+   //     publications = publications?.map((publication) => {
+   //       if (publication.__typename === "Mirror") {
+   //         return publication.mirrorOf;
+   //       } else {
+   //         return publication;
+   //       }
+   //     });
+   //    }
 
+   const publications = [];
 
   
 //   async function profile() {
