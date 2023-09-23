@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dropdown,
   Nav,
@@ -12,7 +12,13 @@ import {
 
 import { Link } from "react-router-dom";
 import { useWeb3Modal } from '@web3modal/react';
-import { useAccount } from 'wagmi';
+import {
+  useWalletLogin,
+  useWalletLogout,
+  useActiveProfile,
+} from "@lens-protocol/react-web";
+import { useAccount, useConnect, useDisconnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
 
 //image
 import user1 from "../../../../assets/images/user/1.jpg";
@@ -33,9 +39,7 @@ import user15 from "../../../../assets/images/page-img/02.jpg";
 import user16 from "../../../../assets/images/page-img/01.jpg";
 //Componets
 import CustomToggle from "../../../dropdowns";
-
 import CreateProfile from "../../../../blockchain/createProfile";
-import GetProfile from "../../../../blockchain/getProfile";
 
 
 const Header = () => {
@@ -44,12 +48,52 @@ const Header = () => {
   };
   const { open, close } = useWeb3Modal()
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const { address } = useAccount();
+  const { execute: login, isPending: isLoginPending } = useWalletLogin();
+  const { execute: logout } = useWalletLogout();
+  const { data, error, loading } = useActiveProfile();
+  const { isConnected } = useAccount();
+  const { disconnectAsync } = useDisconnect();
+  const [image, setImage] = useState("");
 
+  const { connectAsync } = useConnect({
+    connector: new InjectedConnector(),
+  });
+
+  const onLoginClick = async () => {
+    if (isConnected) {
+      await disconnectAsync();
+    }
+
+    const { connector } = await connectAsync();
+
+    if (connector instanceof InjectedConnector) {
+      const walletClient = await connector.getWalletClient();
+
+      await login({
+        address: walletClient.account.address,
+      });
+    }
+  };
+
+
+  async function configUrl() {
+    if(data) {
+      console.log(data)
+      const rawUrl = await data.picture.original.url
+      const ipfsBaseUrl = "https://ipfs.io/ipfs/";
+      const formattedString = rawUrl.replace("ipfs://", "");
+      const url = ipfsBaseUrl + formattedString;
+      setImage(url);
+    }
+  }
+
+  useEffect(() => {
+    configUrl();
+  }, []);
+  
   return (
     <>
       <div className="iq-top-navbar">
@@ -1332,21 +1376,134 @@ const Header = () => {
               
            {address && address.length > 0 ? (
               <>
-              <Dropdown className="mt-lg-3">
+                <Dropdown className="mt-lg-3">
                   <Button variant="primary" onClick={() => open()}>
-                    {String(address).substring(0, 6) +
+                    {String(address).substring(0, 2) +
                       "..." +
-                      String(address).substring(38)}
+                      String(address).substring(40)}
                   </Button>
+                  {data ? (
+                    <div>
+                    <Dropdown as="li" className="nav-item user-dropdown">
+                      <Dropdown.Toggle
+                        href="#"
+                        as={CustomToggle}
+                        variant="d-flex align-items-center"
+                      > 
+                      {data?.picture?.__typename === "MediaSet" && (
+                        <Image
+                        src={image}
+                        className="img-fluid rounded-circle me-3"
+                        alt={data.handle}
+                        loading="lazy" />
+                      )}
+                        <div className="caption d-none d-lg-block">
+                          <h6 className="mb-0 line-height">{data.handle}</h6>
+                        </div>
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu className="sub-drop caption-menu">
+                        <Card className="shadow-none m-0">
+                          <Card.Header>
+                            <div className="header-title">
+                              <h5 className="mb-0 ">Hello {data.handle}</h5>
+                            </div>
+                          </Card.Header>
+                          <Card.Body className="p-0 ">
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <span className="material-symbols-outlined">
+                                line_style
+                              </span>
+                              <div className="ms-3">
+                                <Link to={`/dashboard/app/profile/${data.handle}`} className="mb-0 h6">
+                                  My Profile
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <span className="material-symbols-outlined">
+                                edit_note
+                              </span>
+                              <div className="ms-3">
+                                <Link to="#" className="mb-0 h6">
+                                  Edit Profile
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <span className="material-symbols-outlined">
+                                manage_accounts
+                              </span>
+                              <div className="ms-3">
+                                <Link
+                                  to="/dashboard/app/user-account-setting"
+                                  className="mb-0 h6"
+                                >
+                                  Account settings
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <span className="material-symbols-outlined">lock</span>
+                              <div className="ms-3">
+                                <Link
+                                  to="/dashboard/app/user-privacy-setting"
+                                  className="mb-0 h6"
+                                >
+                                  Privacy Settings
+                                </Link>
+                              </div>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card">
+                              <span className="material-symbols-outlined">login</span>
+                              <div className="ms-3">
+                                <Button className="mb-0 h6" onClick={logout}>
+                                  Sign out
+                                </Button>
+                              </div>
+                            </div>
+                            <div className=" iq-sub-card">
+                              <h5>Chat Settings</h5>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <i className="material-symbols-outlined text-success md-14">
+                                circle
+                              </i>
+                              <div className="ms-3">Online</div>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <i className="material-symbols-outlined text-warning md-14">
+                                circle
+                              </i>
+                              <div className="ms-3">Away</div>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <i className="material-symbols-outlined text-danger md-14">
+                                circle
+                              </i>
+                              <div className="ms-3">Disconnected</div>
+                            </div>
+                            <div className="d-flex align-items-center iq-sub-card border-0">
+                              <i className="material-symbols-outlined text-gray md-14">
+                                circle
+                              </i>
+                              <div className="ms-3">Invisible</div>
+                            </div>
+                          </Card.Body>
+                        </Card>
+                      </Dropdown.Menu>
+                    </Dropdown>       
+                  </div>
+                  ) : (
+                    <Button className="mx-1" variant="primary" disabled={isLoginPending} onClick={onLoginClick}>
+                      Log In
+                    </Button>
+                  )}
                 </Dropdown>
-                <div>
-                  <GetProfile address={address}/>
-                </div>
-                  </>
+              </>
             ) : (
               <>
                 <Dropdown className="mt-lg-3">
-                  <Button variant="primary" onClick={() => open()}>Log In</Button>
+                  <Button variant="primary" onClick={() => open()}>Connect</Button>
                 </Dropdown>
               </>
               

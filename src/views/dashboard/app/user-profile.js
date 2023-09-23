@@ -86,14 +86,11 @@ import img63 from '../../../assets/images/page-img/63.jpg'
 
 // Fslightbox plugin
 const FsLightbox = ReactFsLightbox.default ? ReactFsLightbox.default : ReactFsLightbox;
-const ethers = require("ethers");
-const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
 
 const UserProfile =() =>{
    const [show, setShow] = useState(false);
    const handleClose = () => setShow(false);
    const handleShow = () => setShow(true);
-   const { address } = useAccount();
    let { handle } = useParams();
 
    const [imageController, setImageController] = useState({
@@ -107,6 +104,12 @@ const UserProfile =() =>{
       slide: number
       }); 
   }
+          
+     
+   //       let { publications } = usePublications({
+   //          profileId: profile.id,
+   //          limit: 10,
+   //       });
 
    let { data: profile, loading } = useProfile({ handle });
 
@@ -541,29 +544,25 @@ const UserProfile =() =>{
                                         </Modal.Body>
                                     </Modal>
                                     </Card>
-                                 ) : (
-                                    <></>
-                                 )} 
+                               
                                     <Card>
+                                     {publications?.map((pub, index) => (
                                        <Card.Body>
-                                          <div className="post-item">
+                                          <div className="post-item" key={index}>
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
-                                                      <img
-                                                         loading="lazy"
-                                                         src={profile.picture.original.url}
-                                                         alt={handle}
-                                                         className="rounded-circle  avatar-60"
-                                                      />
+                                                      <img loading="lazy" className="rounded-circle  avatar-60" src={profile.picture.original.url} alt={profile.handle}/>
                                                    </div>
                                                    <div className="w-100">
                                                       <div className="d-flex justify-content-between flex-wrap">
                                                          <div>
-                                                            <h5 className="mb-0 d-inline-block">{profile?.handle}</h5>
+                                                            <h5 className="mb-0 d-inline-block">{profile.handle}</h5>
+                                                            <p className="ms-1 mb-0 d-inline-block">{pub.metadata.locale}</p>
                                                             <p className="mb-0">3 hour ago</p>
                                                          </div>
-                                                         <div className="card-post-toolbar">
+                                                 
+                                                         {/* <div className="card-post-toolbar">
                                                             <Dropdown>
                                                                <Dropdown.Toggle className="bg-transparent border-white">
                                                                <span className="material-symbols-outlined">
@@ -618,7 +617,7 @@ const UserProfile =() =>{
                                                                   </Dropdown.Item>
                                                                </Dropdown.Menu>
                                                             </Dropdown>
-                                                         </div>
+                                                         </div> */}
                                                       </div>
                                                    </div>
                                                 </div>
@@ -1261,6 +1260,7 @@ const UserProfile =() =>{
                                              </div>
                                           </div>
                                        </Card.Body>
+                                     ))}
                                     </Card>
                                  </Col>
                               </Row>
