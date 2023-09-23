@@ -87,6 +87,10 @@ const Header = () => {
       const formattedString = rawUrl.replace("ipfs://", "");
       const url = ipfsBaseUrl + formattedString;
       setImage(url);
+    } else if (loading) {
+      <p>loading..</p>
+    } else {
+      <p>{error.message}</p>
     }
   }
 
@@ -1376,31 +1380,28 @@ const Header = () => {
               
            {address && address.length > 0 ? (
               <>
-                <Dropdown className="mt-lg-3">
-                  <Button variant="primary" onClick={() => open()}>
+                  <Button className="mt-3 mb-5 pt-0 pb-0 mx-0" variant="primary" onClick={() => open()}>
                     {String(address).substring(0, 2) +
                       "..." +
                       String(address).substring(40)}
                   </Button>
+                <Dropdown className="mt-lg-3">
                   {data ? (
-                    <div>
                     <Dropdown as="li" className="nav-item user-dropdown">
-                      <Dropdown.Toggle
-                        href="#"
-                        as={CustomToggle}
-                        variant="d-flex align-items-center"
-                      > 
+                      <Dropdown.Toggle href="#" as={CustomToggle} className="p-0" variant="d-flex align-items-center"> 
+                      <div className="caption d-none d-lg-block mb-3 mx-2">
+                          <h6 className="line-height">{data.handle}</h6>
+                        </div>
                       {data?.picture?.__typename === "MediaSet" && (
                         <Image
                         src={image}
-                        className="img-fluid rounded-circle me-3"
-                        alt={data.handle}
+                        className="img-fluid rounded-circle me-3 mb-5"
+                        // alt={data.handle}
                         loading="lazy" />
                       )}
-                        <div className="caption d-none d-lg-block">
-                          <h6 className="mb-0 line-height">{data.handle}</h6>
-                        </div>
+                        
                       </Dropdown.Toggle>
+                      
                       <Dropdown.Menu className="sub-drop caption-menu">
                         <Card className="shadow-none m-0">
                           <Card.Header>
@@ -1492,7 +1493,7 @@ const Header = () => {
                         </Card>
                       </Dropdown.Menu>
                     </Dropdown>       
-                  </div>
+                  
                   ) : (
                     <Button className="mx-1" variant="primary" disabled={isLoginPending} onClick={onLoginClick}>
                       Log In
