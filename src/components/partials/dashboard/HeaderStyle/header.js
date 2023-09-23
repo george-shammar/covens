@@ -81,6 +81,7 @@ const Header = () => {
 
   async function configUrl() {
     if(data) {
+      console.log(data)
       const rawUrl = await data.picture.original.url
       const ipfsBaseUrl = "https://ipfs.io/ipfs/";
       const formattedString = rawUrl.replace("ipfs://", "");
@@ -1379,7 +1380,7 @@ const Header = () => {
                   <Button variant="primary" onClick={() => open()}>
                     {String(address).substring(0, 2) +
                       "..." +
-                      String(address).substring(38)}
+                      String(address).substring(40)}
                   </Button>
                   {data ? (
                     <div>
@@ -1390,11 +1391,11 @@ const Header = () => {
                         variant="d-flex align-items-center"
                       > 
                       {data?.picture?.__typename === "MediaSet" && (
-                          <Image
-                          src={image}
-                          className="img-fluid rounded-circle me-3"
-                          // alt={data.handle}
-                          loading="lazy" />
+                        <Image
+                        src={image}
+                        className="img-fluid rounded-circle me-3"
+                        alt={data.handle}
+                        loading="lazy" />
                       )}
                         <div className="caption d-none d-lg-block">
                           <h6 className="mb-0 line-height">{data.handle}</h6>
