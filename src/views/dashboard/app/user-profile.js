@@ -7,6 +7,7 @@ import {Link, useParams} from 'react-router-dom'
 import ReactFsLightbox from 'fslightbox-react';
 import { useAccount } from 'wagmi';
 import { useProfile, usePublications, Profile } from "@lens-protocol/react-web";
+import { useComments } from '@lens-protocol/react-web';
 
 // images
 import img1 from '../../../assets/images/page-img/profile-bg1.jpg'
