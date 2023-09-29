@@ -50,7 +50,7 @@ const Index = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const { data: profiles } = useExploreProfiles({
-        limit: 5
+        limit: 50
     })
 
     const { address } = useAccount();
