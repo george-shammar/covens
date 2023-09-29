@@ -92,8 +92,8 @@ const UserProfile =() =>{
    const handleClose = () => setShow(false);
    const handleShow = () => setShow(true);
    let { handle } = useParams();
-
    let { data: profile, loading } = useProfile({ handle });
+   const [id, setId] = useState();
 
    const [imageController, setImageController] = useState({
       toggler: false,
@@ -106,24 +106,28 @@ const UserProfile =() =>{
       slide: number
       }); 
   }
-          
-     
-   //       let { publications } = usePublications({
-   //          profileId: profile.id,
-   //          limit: 10,
-   //       });
 
-   // if(profile) {
-   //     publications = publications?.map((publication) => {
-   //       if (publication.__typename === "Mirror") {
-   //         return publication.mirrorOf;
-   //       } else {
-   //         return publication;
-   //       }
-   //     });
-   //    }
+  useEffect(() => {
+      if (loading) {
+      console.log("loading")
+      } else {
+      console.log(profile.id)
+      setId(profile.id)
+      }
+   }, []);
 
-   const publications = [];
+   let { data: publications } = usePublications({
+      profileId: id,
+      limit: 10,
+    });
+    publications = publications?.map((publication) => {
+      if (publication.__typename === "Mirror") {
+        return publication.mirrorOf;
+      } else {
+        return publication;
+      }
+    });
+
 
   
 //   async function profile() {
@@ -148,7 +152,7 @@ const UserProfile =() =>{
    // }
 //  }
 
- if (loading) return <p className="p-14">Loading ...</p>;
+//  if (loading) return <p className="p-14">Loading ...</p>;
 
   return(
       <>
@@ -574,7 +578,7 @@ const UserProfile =() =>{
                                                             <p className="ms-1 mb-0 d-inline-block">{pub.metadata.locale}</p>
                                                             <p className="mb-0">3 hour ago</p>
                                                          </div>
-                                                 
+                                                         <p>{pub.metadata.content}</p>
                                                          {/* <div className="card-post-toolbar">
                                                             <Dropdown>
                                                                <Dropdown.Toggle className="bg-transparent border-white">
@@ -636,9 +640,16 @@ const UserProfile =() =>{
                                                 </div>
                                              </div>
                                              <div className="user-post">
-                                                <Link to="#"><img loading="lazy" src={p1} alt="post" className="img-fluid w-100" /></Link>
+                                                <Link to="#">
+                                                   {pub.metadata?.media[0]?.original &&
+                                                      ["image/jpeg", "image/png"].includes(
+                                                      pub.metadata?.media[0]?.original.mimeType
+                                                      ) && (
+                                                      <img loading="lazy" src={pub.metadata.media[0].original.url} alt="post" className="img-fluid w-100" />
+                                                      )}
+                                                </Link>
                                              </div>
-                                             <div className="comment-area mt-3">
+                                             {/* <div className="comment-area mt-3">
                                                 <div className="d-flex justify-content-between align-items-center flex-wrap">
                                                    <div className="like-block position-relative d-flex align-items-center">
                                                       <div className="d-flex align-items-center">
@@ -739,9 +750,9 @@ const UserProfile =() =>{
                                                       <Link to="#" className="material-symbols-outlined  me-3">photo_camera</Link>
                                                    </div>
                                                 </form>
-                                             </div>
+                                             </div> */}
                                           </div>
-                                          <div className="post-item">
+                                          {/* <div className="post-item">
                                              <div className="user-post-data py-3">
                                                 <div className="d-flex  justify-content-between">
                                                    <div className="me-3">
@@ -917,8 +928,8 @@ const UserProfile =() =>{
                                                    </div>
                                                 </form>
                                              </div>
-                                          </div>
-                                          <div className="post-item">
+                                          </div> */}
+                                          {/* <div className="post-item">
                                              <div className="user-post-data py-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
@@ -1094,8 +1105,8 @@ const UserProfile =() =>{
                                                    </div>
                                                 </form>
                                              </div>
-                                          </div>
-                                          <div className="post-item">
+                                          </div> */}
+                                          {/* <div className="post-item">
                                              <div className="user-post-data py-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className=" me-3">
@@ -1271,7 +1282,7 @@ const UserProfile =() =>{
                                                    </div>
                                                 </form>
                                              </div>
-                                          </div>
+                                          </div> */}
                                        </Card.Body>
                                      ))}
                                     </Card>
