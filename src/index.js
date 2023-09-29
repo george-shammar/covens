@@ -23,7 +23,7 @@ import { configureChains, createConfig, WagmiConfig } from 'wagmi'
 import { polygonMumbai, polygon } from 'wagmi/chains'
 import { InjectedConnector } from 'wagmi/connectors/injected';
 import { publicProvider } from 'wagmi/providers/public';
-import { LensConfig, production } from '@lens-protocol/react-web';
+import { LensConfig, development } from '@lens-protocol/react-web';
 import { bindings as wagmiBindings } from '@lens-protocol/wagmi';
 import { LensProvider } from '@lens-protocol/react-web';
 
@@ -62,7 +62,7 @@ const wagmiConfig = createConfig({
 
 const lensConfig = {
   bindings: wagmiBindings(),
-  environment: production,
+  environment: development,
 };
 
 
