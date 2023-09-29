@@ -6,7 +6,6 @@ import ShareOffcanvas from '../../../components/share-offcanvas'
 import {Link, useParams} from 'react-router-dom'
 import ReactFsLightbox from 'fslightbox-react';
 import { useAccount } from 'wagmi';
-// import { BrowserProvider } from "ethers";
 import { useProfile, usePublications, Profile } from "@lens-protocol/react-web";
 
 // images
@@ -126,32 +125,6 @@ const UserProfile =() =>{
         return publication;
       }
     });
-
-
-  
-//   async function profile() {
-   // const provider = new BrowserProvider(window.ethereum);
-   // const signer = await provider.getSigner();
-
-   // const contract = new ethers.Contract(contractAddress.CovenProfile, CovenProfileArtifact.abi, signer);
-   
-   // try {
-   //   const transaction = contract.getOwnerCovens(address);
-
-   // const receipt = await transaction;
-   // let coven = receipt[receipt.length-1];
-   // setProfile(coven)
-   // } catch (error) {
-   //   if (error.code === ERROR_CODE_TX_REJECTED_BY_USER) {
-   //     return;
-   //   }
-   //   console.error(error);
-   // } finally {
-
-   // }
-//  }
-
-//  if (loading) return <p className="p-14">Loading ...</p>;
 
   return(
       <>
