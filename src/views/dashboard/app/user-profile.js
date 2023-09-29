@@ -136,7 +136,7 @@ const UserProfile =() =>{
       const minutes = Math.floor(seconds / 60);
       const hours = Math.floor(minutes / 60);
       const days = Math.floor(hours / 24);
-      const months = Math.floor(days / 30.44); // average days in a month
+      const months = Math.floor(days / 30.44);
       const years = Math.floor(months / 12);
 
          if (seconds < 60) {
