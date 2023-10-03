@@ -6,9 +6,9 @@ import ShareOffcanvas from '../../../components/share-offcanvas'
 import {Link, useParams} from 'react-router-dom'
 import ReactFsLightbox from 'fslightbox-react';
 import Like from './like';
+import Comment from './comment';
 import { useAccount } from 'wagmi';
 import { useProfile, usePublications, Profile } from "@lens-protocol/react-web";
-import { useComments } from '@lens-protocol/react-web';
 
 // images
 import img1 from '../../../assets/images/page-img/profile-bg1.jpg'
@@ -86,9 +86,6 @@ const UserProfile =() =>{
    let { handle } = useParams();
    let { data: profile, loading } = useProfile({ handle });
    const [id, setId] = useState();
-   const [publicationId, setPublicationId] = useState("");
-   let args = {};
-   const { comments, hasMore, next } = useComments(args);
 
    const [imageController, setImageController] = useState({
       toggler: false,
@@ -650,6 +647,7 @@ const UserProfile =() =>{
                                                    <div className="like-block position-relative d-flex align-items-center">
                                                       <Like id={id} publication={pub} />
                                                    </div>
+                                                   <Comment publication={pub} />
                                                 <ShareOffcanvas />
                                                 </div>
                                                 <form className="comment-text d-flex align-items-center mt-3" >
