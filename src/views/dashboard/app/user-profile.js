@@ -101,6 +101,9 @@ const UserProfile =() =>{
    const { addReaction, removeReaction, hasReaction, isPending, error } = useReaction({
       profileId: id,
     });
+   const reactionType = ReactionTypes.Upvote;
+
+
 
    const [imageController, setImageController] = useState({
       toggler: false,
@@ -715,43 +718,6 @@ const UserProfile =() =>{
                                                    </div>
                                                 <ShareOffcanvas />
                                                 </div>
-                                                <hr/>
-                                                <ul className="post-comments p-0 m-0">
-                                                   <li className="mb-2">
-                                                      <div className="d-flex flex-wrap">
-                                                         <div className="user-img">
-                                                            <img loading="lazy" src={user02} alt="userimg" className="avatar-35 rounded-circle img-fluid"/>
-                                                         </div>
-                                                         <div className="comment-data-block ms-3">
-                                                            <h6>Monty Carlo</h6>
-                                                            <p className="mb-0">Lorem ipsum dolor sit amet</p>
-                                                            <div className="d-flex flex-wrap align-items-center comment-activity">
-                                                               <Link to="#">like</Link>
-                                                               <Link to="#">reply</Link>
-                                                               <Link to="#">translate</Link>
-                                                               <span> 5 min </span>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </li>
-                                                   <li>
-                                                      <div className="d-flex flex-wrap">
-                                                         <div className="user-img">
-                                                            <img loading="lazy" src={user03} alt="userimg" className="avatar-35 rounded-circle img-fluid"/>
-                                                         </div>
-                                                         <div className="comment-data-block ms-3">
-                                                            <h6>Paul Molive</h6>
-                                                            <p className="mb-0">Lorem ipsum dolor sit amet</p>
-                                                            <div className="d-flex flex-wrap align-items-center comment-activity">
-                                                               <Link to="#">like</Link>
-                                                               <Link to="#">reply</Link>
-                                                               <Link to="#">translate</Link>
-                                                               <span> 5 min </span>
-                                                            </div>
-                                                         </div>
-                                                      </div>
-                                                   </li>
-                                                </ul>
                                                 <form className="comment-text d-flex align-items-center mt-3" >
                                                    <input type="text" className="form-control rounded" placeholder="Enter Your Comment"/>
                                                    <div className="comment-attagement d-flex">
