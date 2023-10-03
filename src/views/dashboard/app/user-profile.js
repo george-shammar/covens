@@ -6,7 +6,6 @@ import ShareOffcanvas from '../../../components/share-offcanvas'
 import {Link, useParams} from 'react-router-dom'
 import ReactFsLightbox from 'fslightbox-react';
 import Like from './like';
-import Comment from './comment';
 import { useAccount } from 'wagmi';
 import { useProfile, usePublications, Profile } from "@lens-protocol/react-web";
 
@@ -121,7 +120,6 @@ const UserProfile =() =>{
          }
        });
    }, []);
-
 
     function calculateTimeElapsed(timestamp) {
       const eventTime = new Date(timestamp);
@@ -649,7 +647,6 @@ const UserProfile =() =>{
                                                    <div className="like-block position-relative d-flex align-items-center">
                                                       <Like id={id} publication={pub} />
                                                    </div>
-                                                   <Comment publication={pub} />
                                                 <ShareOffcanvas />
                                                 </div>
                                                 <form className="comment-text d-flex align-items-center mt-3" >
