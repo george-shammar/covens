@@ -8,6 +8,8 @@ import ShareOffcanvas from '../../../components/share-offcanvas';
 import Like from './like';
 import { useProfile, usePublication, Profile } from "@lens-protocol/react-web";
 import user01 from '../../../assets/images/user/01.jpg'
+import user02 from '../../../assets/images/user/02.jpg'
+import user03 from '../../../assets/images/user/03.jpg'
 
 
 const PublicationPage = () => {
@@ -55,6 +57,7 @@ const PublicationPage = () => {
        }
  }
 
+ console.log(coms)
 
     return (
         <>
@@ -187,6 +190,43 @@ const PublicationPage = () => {
                                           </div>
                                          
                                        </Card.Body>
+
+
+
+                                       <hr/>
+                                       {!loading && coms ? (
+                                          <div>
+                                            {coms.map((com, index) => (
+                                              <ul className="post-comments p-0 m-0">
+                                                   <li className="mb-2">
+                                                      <div className="d-flex flex-wrap">
+                                                         <div className="user-img">
+                                                            <img loading="lazy" src={user02} alt="userimg" className="avatar-35 rounded-circle img-fluid"/>
+                                                         </div>
+                                                         <div className="comment-data-block ms-3">
+                                                            <h6>Monty Carlo</h6>
+                                                            <p className="mb-0">{com.metadata.content}</p>
+                                                            {com.metadata.image ? (
+                                                                <img loading="lazy" src={com.metadata.image} alt="post" className="img-fluid w-100" />
+                                                            ) : (
+                                                              <p></p>
+                                                            )}
+                                                            <div className="d-flex flex-wrap align-items-center comment-activity">
+                                                               <Link to="#">like</Link>
+                                                               <Link to="#">reply</Link>
+                                                               <Link to="#">translate</Link>
+                                                               <span>{calculateTimeElapsed(com.createdAt)}</span>
+                                                            </div>
+                                                         </div>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                            ))}
+                                          </div>
+                                       ) : (
+                                        <p>No comments...</p>
+                                       )}
+                                                
                     </Col>
                 </Row>
             </Container>
