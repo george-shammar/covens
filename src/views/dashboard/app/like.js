@@ -1,15 +1,9 @@
-import React,{useEffect, useState} from 'react';
+import React from 'react';
 import CustomToggle from '../../../components/dropdowns';
-import {Row, Col, Container, Dropdown, Nav, Tab, OverlayTrigger, Tooltip, Button, Modal } from 'react-bootstrap'
+import { Dropdown } from 'react-bootstrap'
 import { ReactionTypes, useReaction } from '@lens-protocol/react-web';
 
 import icon1 from '../../../assets/images/icon/01.png'
-import icon2 from '../../../assets/images/icon/02.png'
-import icon3 from '../../../assets/images/icon/03.png'
-import icon4 from '../../../assets/images/icon/04.png'
-import icon5 from '../../../assets/images/icon/05.png'
-import icon6 from '../../../assets/images/icon/06.png'
-import icon7 from '../../../assets/images/icon/07.png'
 
 const Like =({id, publication}) => {
 
