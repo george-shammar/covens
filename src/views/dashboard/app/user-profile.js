@@ -5,10 +5,10 @@ import CustomToggle from '../../../components/dropdowns'
 import ShareOffcanvas from '../../../components/share-offcanvas'
 import {Link, useParams} from 'react-router-dom'
 import ReactFsLightbox from 'fslightbox-react';
+import Like from './like';
 import { useAccount } from 'wagmi';
 import { useProfile, usePublications, Profile } from "@lens-protocol/react-web";
 import { useComments } from '@lens-protocol/react-web';
-import { ReactionTypes, usePublication, useReaction } from '@lens-protocol/react-web';
 
 // images
 import img1 from '../../../assets/images/page-img/profile-bg1.jpg'
@@ -98,9 +98,6 @@ const UserProfile =() =>{
    const [publicationId, setPublicationId] = useState("");
    let args = {};
    const { comments, hasMore, next } = useComments(args);
-   const { addReaction, removeReaction, hasReaction, isPending, error } = useReaction({
-      profileId: id,
-    });
    const reactionType = ReactionTypes.Upvote;
 
 
@@ -682,7 +679,8 @@ const UserProfile =() =>{
                                                                </Dropdown.Menu>
                                                             </Dropdown>
                                                          </div>
-                                                         <div className="total-like-block ms-2 me-3">
+                                                         <Like />
+                                                         {/* <div className="total-like-block ms-2 me-3">
                                                             <Dropdown>
                                                                <Dropdown.Toggle as={CustomToggle}  id="post-option" >
                                                                   140 Likes
@@ -697,9 +695,9 @@ const UserProfile =() =>{
                                                                      <Dropdown.Item  to="#">Other</Dropdown.Item>
                                                                </Dropdown.Menu>
                                                             </Dropdown>
-                                                         </div>
+                                                         </div> */}
                                                       </div>
-                                                      <div className="total-comment-block">
+                                                      {/* <div className="total-comment-block">
                                                       <Dropdown>
                                                          <Dropdown.Toggle as={CustomToggle}  id="post-option" >
                                                          56 comments
@@ -714,7 +712,7 @@ const UserProfile =() =>{
                                                             <Dropdown.Item  to="#">Other</Dropdown.Item>
                                                          </Dropdown.Menu>
                                                       </Dropdown>
-                                                      </div>
+                                                      </div> */}
                                                    </div>
                                                 <ShareOffcanvas />
                                                 </div>
