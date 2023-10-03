@@ -8,6 +8,7 @@ import ReactFsLightbox from 'fslightbox-react';
 import { useAccount } from 'wagmi';
 import { useProfile, usePublications, Profile } from "@lens-protocol/react-web";
 import { useComments } from '@lens-protocol/react-web';
+import { ReactionTypes, usePublication, useReaction } from '@lens-protocol/react-web';
 
 // images
 import img1 from '../../../assets/images/page-img/profile-bg1.jpg'
@@ -94,6 +95,12 @@ const UserProfile =() =>{
    let { handle } = useParams();
    let { data: profile, loading } = useProfile({ handle });
    const [id, setId] = useState();
+   const [publicationId, setPublicationId] = useState("");
+   let args = {};
+   const { comments, hasMore, next } = useComments(args);
+   const { addReaction, removeReaction, hasReaction, isPending, error } = useReaction({
+      profileId: id,
+    });
 
    const [imageController, setImageController] = useState({
       toggler: false,
@@ -119,13 +126,19 @@ const UserProfile =() =>{
       profileId: id,
       limit: 50,
     });
-    publications = publications?.map((publication) => {
-      if (publication.__typename === "Mirror") {
-        return publication.mirrorOf;
-      } else {
-        return publication;
-      }
-    });
+
+    useEffect(() => {
+      publications = publications?.map((publication) => {
+         if (publication.__typename === "Mirror") {
+            setPublicationId(publication.mirrorOf.id);
+           return publication.mirrorOf;
+         } else {
+            setPublicationId(publication.id);
+           return publication;
+         }
+       });
+   }, []);
+
 
     function calculateTimeElapsed(timestamp) {
       const eventTime = new Date(timestamp);
@@ -562,10 +575,20 @@ const UserProfile =() =>{
                                                       <div className="d-flex justify-content-between flex-wrap">
                                                          <div>
                                                             <h5 className="mb-0 d-inline-block">{profile.handle}</h5>
-                                                            <p className="ms-1 mb-0 d-inline-block">{pub.metadata.locale}</p>
-                                                            <p className="mb-0">{calculateTimeElapsed(pub.createdAt)}</p>
+                                                            {pub.metadata ? (
+                                                               <>
+                                                                  <p className="ms-1 mb-0 d-inline-block">{pub.metadata.locale}</p>
+                                                                  <p className="mb-0">{calculateTimeElapsed(pub.createdAt)}</p>
+                                                                  <p>{pub.metadata.content}</p>
+                                                               </>
+                                                            ) : (
+                                                               <>
+                                                                  <p className="ms-1 mb-0 d-inline-block">earth</p>
+                                                                  <p className="mb-0">{calculateTimeElapsed(pub.createdAt)}</p>
+                                                               </>
+                                                            )}
                                                          </div>
-                                                         <p>{pub.metadata.content}</p>
+                                                        
                                                          <div className="card-post-toolbar">
                                                             <Dropdown>
                                                                <Dropdown.Toggle className="bg-transparent border-white">
@@ -676,7 +699,7 @@ const UserProfile =() =>{
                                                       <div className="total-comment-block">
                                                       <Dropdown>
                                                          <Dropdown.Toggle as={CustomToggle}  id="post-option" >
-                                                         20 Comment
+                                                         56 comments
                                                          </Dropdown.Toggle>
                                                          <Dropdown.Menu>
                                                             <Dropdown.Item  to="#">Max Emum</Dropdown.Item>
