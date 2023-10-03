@@ -5,6 +5,7 @@ import Index from "../views/dashboard/index";
 import UserProfile from "../views/dashboard/app/user-profile";
 import UserPrivacySetting from "../views/dashboard/app/user-privacy-setting";
 import FriendProfile from "../views/dashboard/app/friend-profile";
+import PublicationPage from "../views/dashboard/app/publicationPage";
 
 import ProfileForums from "../views/dashboard/app/profile-forum";
 import Notification from "../views/dashboard/app/notification";
@@ -86,6 +87,10 @@ export const DefaultRouter = [
   {
     path: "dashboard/app/profile/:handle",
     element: <UserProfile />,
+  },
+  {
+    path: "dashboard/app/:publicationId",
+    element: <PublicationPage />,
   },
   {
     path: "dashboard/app/user-privacy-setting",

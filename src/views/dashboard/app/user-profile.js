@@ -542,7 +542,9 @@ const UserProfile =() =>{
                                     </Card>
                                     <Card>
                                      {publications?.map((pub, index) => (
+                                       <Link to={`/dashboard/app/${pub.id}`}>
                                        <Card.Body>
+                                          
                                           <div className="post-item" key={index}>
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
@@ -660,7 +662,9 @@ const UserProfile =() =>{
                                                 </form>
                                              </div>
                                           </div>
+                                         
                                        </Card.Body>
+                                    </Link>
                                      ))}
                                     </Card>
                                  </Col>
