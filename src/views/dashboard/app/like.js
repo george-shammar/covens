@@ -41,24 +41,15 @@ const Like =({id, publication}) => {
   return (
     <div className="d-flex align-items-center">
       {error && <p>{error.message}</p>}
-
-      {/* <button onClick={toggleReaction} disabled={isPending}>
-        {hasReactionType ? `Remove ${reactionType}` : `Add ${reactionType}`}
-      </button> */}
       <div className="like-data">
         <Dropdown>
-          <Dropdown.Toggle  as={CustomToggle} >
+          <Dropdown.Toggle  onClick={toggleReaction} disabled={isPending} as={CustomToggle} >
+          {hasReactionType ? (
+            <p></p>
+          ) : (
             <img loading="lazy" src={icon1} className="img-fluid" alt=""/>
+          )}
           </Dropdown.Toggle>
-          <Dropdown.Menu className=" py-2">
-            <OverlayTrigger placement="top" overlay={<Tooltip>Like</Tooltip>} className="ms-2 me-2" ><img loading="lazy" src={icon1} className="img-fluid me-2" alt=""/></OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>Love</Tooltip>} className="me-2" ><img loading="lazy" src={icon2} className="img-fluid me-2" alt=""/></OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>Happy</Tooltip>} className="me-2" ><img loading="lazy" src={icon3} className="img-fluid me-2" alt=""/></OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>HaHa</Tooltip>} className="me-2" ><img loading="lazy" src={icon4} className="img-fluid me-2" alt=""/></OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>Think</Tooltip>} className="me-2" ><img loading="lazy" src={icon5} className="img-fluid me-2" alt=""/></OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>Sade</Tooltip>} className="me-2" ><img loading="lazy" src={icon6} className="img-fluid me-2" alt=""/></OverlayTrigger>
-            <OverlayTrigger placement="top" overlay={<Tooltip>Lovely</Tooltip>} className="me-2" ><img loading="lazy" src={icon7} className="img-fluid me-2" alt=""/></OverlayTrigger>
-          </Dropdown.Menu>
         </Dropdown>
       </div>
          <div className="total-like-block ms-2 me-3">
