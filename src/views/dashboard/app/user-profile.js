@@ -147,7 +147,6 @@ const UserProfile =() =>{
          }
    }
   
-
   return(
       <>
       <FsLightbox
@@ -215,20 +214,25 @@ const UserProfile =() =>{
                                  </ul>
                               </div>
                               <div className="social-info">
+                              {profile ? (
                                  <ul className="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
-                                    <li className="text-center ps-3">
-                                       <h6>Posts</h6>
-                                       <p className="mb-0">690</p>
-                                    </li>
-                                    <li className="text-center ps-3">
-                                       <h6>Followers</h6>
-                                       <p className="mb-0">206</p>
-                                    </li>
-                                    <li className="text-center ps-3">
-                                       <h6>Following</h6>
-                                       <p className="mb-0">100</p>
-                                    </li>
-                                 </ul>
+                                 <li className="text-center ps-3">
+                                    <h6>Posts</h6>
+                                    <p className="mb-0">{profile.stats.totalPublications}</p>
+                                 </li>
+                                 <li className="text-center ps-3">
+                                    <h6>Followers</h6>
+                                    <p className="mb-0">{profile.stats.totalFollowers}</p>
+                                 </li>
+                                 <li className="text-center ps-3">
+                                    <h6>Following</h6>
+                                    <p className="mb-0">{profile.stats.totalFollowing}</p>
+                                 </li>
+                              </ul>
+                              ):(
+                                 <p></p>
+                              )}
+                                 
                               </div>
                           </div>
                         </div>
