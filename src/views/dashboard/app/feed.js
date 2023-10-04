@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { Row, Col, Container, Dropdown, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap';
 import Card from '../../../components/Card';
 import ShareOffcanvas from '../../../components/share-offcanvas';
-import CustomToggle from '../../../components/dropdowns'
+import CustomToggle from '../../../components/dropdowns';
+import Like from './like';
 
 
 import user01 from '../../../assets/images/user/01.jpg';
@@ -23,12 +24,41 @@ import p1 from '../../../assets/images/page-img/p1.jpg';
 
 const Feed = () => {
   const { data, loading, hasMore, next } = useExplorePublications();
+  
+  function calculateTimeElapsed(timestamp) {
+    const eventTime = new Date(timestamp);
+    const currentTime = new Date();
 
+    const timeDifference = currentTime - eventTime;
 
+    const seconds = Math.floor(timeDifference / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30.44);
+    const years = Math.floor(months / 12);
+
+       if (seconds < 60) {
+          return `${seconds} seconds ago`
+       } else if (seconds > 60 && minutes < 60 ) {
+          return `${minutes} minutes ago`
+       } else if (minutes > 60 && hours < 24) {
+          return `${hours} hours ago`
+       } else if (hours > 24 && days < 30) {
+          return `${days} days ago`
+       } else if (days > 30 && months < 12) {
+          return `${months} months ago`
+       } else {
+          return `${years} years ago`
+       }
+    }
 
   return (
-     <Col sm={12}>
-                            <Card className=" card-block card-stretch card-height">
+    <>
+    {!loading && data ? (
+      <Col sm={12}>
+        {data?.map((post, index) => (
+                            <Card className=" card-block card-stretch card-height" key={index}>
                                 <Card.Body>
                                     <div className="user-post-data">
                                         <div className="d-flex justify-content-between">
@@ -38,9 +68,8 @@ const Feed = () => {
                                             <div className="w-100">
                                                 <div className="d-flex justify-content-between">
                                                     <div>
-                                                        <h5 className="mb-0 d-inline-block">Anna Sthesia</h5>
-                                                        <span className="mb-0 ps-1 d-inline-block">Add New Post</span>
-                                                        <p className="mb-0 text-primary">Just Now</p>
+                                                        <h5 className="mb-0 d-inline-block">{post.profile.handle}</h5>
+                                                        <p className="mb-0 text-primary">{calculateTimeElapsed(post.createdAt)}</p>
                                                     </div>
                                                     <div className="card-post-toolbar">
                                                         <Dropdown>
@@ -96,127 +125,51 @@ const Feed = () => {
                                             </div>
                                         </div>
                                         <div className="mt-3">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla dolor, ornare at commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin blandit ac massa sed rhoncus</p>
+                                          {!loading && post && post.metadata !== undefined ? (
+                                             <p>{post.metadata.content}</p>
+                                          ):(
+                                            <p></p>
+                                          )}
                                         </div>
                                         <div className="user-post">
-                                            <div className=" d-grid grid-rows-2 grid-flow-col gap-3">
-                                                <div className="row-span-2 row-span-md-1">
-                                                    <img src={p2} alt="post1" className="img-fluid rounded w-100"/>
-                                                </div>
-                                                <div className="row-span-1">
-                                                    <img src={p1} alt="post2" className="img-fluid rounded w-100"/>
-                                                </div>
-                                                <div className="row-span-1 ">
-                                                    <img src={p3} alt="post3" className="img-fluid rounded w-100"/>
-                                                </div>
-                                            </div>
+                                        {!loading && post && post.metadata !== undefined ? (
+                                             <div className=" d-grid grid-rows-2 grid-flow-col gap-3">
+                                             <div className="row-span-2 row-span-md-1">
+                                                 <img src={post.metadata.image} alt="post1" className="img-fluid rounded w-100"/>
+                                             </div>
+                                             {/* <div className="row-span-1">
+                                                 <img src={p1} alt="post2" className="img-fluid rounded w-100"/>
+                                             </div>
+                                             <div className="row-span-1 ">
+                                                 <img src={p3} alt="post3" className="img-fluid rounded w-100"/>
+                                             </div> */}
+                                         </div>
+                                          ):(
+                                            <p></p>
+                                          )}
+                                            
                                         </div>
                                         <div className="comment-area mt-3">
                                             <div className="d-flex justify-content-between align-items-center flex-wrap">
                                                 <div className="like-block position-relative d-flex align-items-center">
                                                     <div className="d-flex align-items-center">
                                                         <div className="like-data">
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle  as={CustomToggle} >
-                                                                    <img src={icon1} className="img-fluid" alt=""/>
-                                                                </Dropdown.Toggle>
-                                                                <Dropdown.Menu className=" py-2">
-                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>Like</Tooltip>} className="ms-2 me-2" ><img src={icon1} className="img-fluid me-2" alt=""/></OverlayTrigger>
-                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>Love</Tooltip>} className="me-2" ><img src={icon2} className="img-fluid me-2" alt=""/></OverlayTrigger>
-                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>Happy</Tooltip>} className="me-2" ><img src={icon3} className="img-fluid me-2" alt=""/></OverlayTrigger>
-                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>HaHa</Tooltip>} className="me-2" ><img src={icon4} className="img-fluid me-2" alt=""/></OverlayTrigger>
-                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>Think</Tooltip>} className="me-2" ><img src={icon5} className="img-fluid me-2" alt=""/></OverlayTrigger>
-                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>Sade</Tooltip>} className="me-2" ><img src={icon6} className="img-fluid me-2" alt=""/></OverlayTrigger>
-                                                                    <OverlayTrigger placement="top" overlay={<Tooltip>Lovely</Tooltip>} className="me-2" ><img src={icon7} className="img-fluid me-2" alt=""/></OverlayTrigger>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
+                                                          <Like publication={post}/>
                                                         </div>
-                                                        <div className="total-like-block ms-2 me-3">
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle as={CustomToggle}  id="post-option" >
-                                                                140 Likes
-                                                                </Dropdown.Toggle>
-                                                                <Dropdown.Menu>
-                                                                    <Dropdown.Item  href="#">Max Emum</Dropdown.Item>
-                                                                    <Dropdown.Item  href="#">Bill Yerds</Dropdown.Item>
-                                                                    <Dropdown.Item  href="#">Hap E. Birthday</Dropdown.Item>
-                                                                    <Dropdown.Item  href="#">Tara Misu</Dropdown.Item>
-                                                                    <Dropdown.Item  href="#">Midge Itz</Dropdown.Item>
-                                                                    <Dropdown.Item  href="#">Sal Vidge</Dropdown.Item>
-                                                                    <Dropdown.Item  href="#">Other</Dropdown.Item>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-                                                        </div>
-                                                    </div>
-                                                    <div className="total-comment-block">
-                                                        <Dropdown>
-                                                            <Dropdown.Toggle as={CustomToggle}  id="post-option" >
-                                                            20 Comment
-                                                            </Dropdown.Toggle>
-                                                            <Dropdown.Menu>
-                                                                <Dropdown.Item  href="#">Max Emum</Dropdown.Item>
-                                                                <Dropdown.Item  href="#">Bill Yerds</Dropdown.Item>
-                                                                <Dropdown.Item  href="#">Hap E. Birthday</Dropdown.Item>
-                                                                <Dropdown.Item  href="#">Tara Misu</Dropdown.Item>
-                                                                <Dropdown.Item  href="#">Midge Itz</Dropdown.Item>
-                                                                <Dropdown.Item  href="#">Sal Vidge</Dropdown.Item>
-                                                                <Dropdown.Item  href="#">Other</Dropdown.Item>
-                                                            </Dropdown.Menu>
-                                                        </Dropdown>
-                                                    </div>
+                                                    </div>                                                    
                                                 </div>
                                                 <ShareOffcanvas />
                                             </div>
                                         <hr/>
-                                        <ul className="post-comments list-inline p-0 m-0">
-                                            <li className="mb-2">
-                                                <div className="d-flex">
-                                                    <div className="user-img">
-                                                        <img src={user2} alt="user1" className="avatar-35 rounded-circle img-fluid"/>
-                                                    </div>
-                                                    <div className="comment-data-block ms-3">
-                                                        <h6>Monty Carlo</h6>
-                                                        <p className="mb-0">Lorem ipsum dolor sit amet</p>
-                                                        <div className="d-flex flex-wrap align-items-center comment-activity">
-                                                            <Link to="#">like</Link>
-                                                            <Link to="#">reply</Link>
-                                                            <Link to="#">translate</Link>
-                                                            <span> 5 min </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div className="d-flex">
-                                                    <div className="user-img">
-                                                        <img src={user3} alt="user1" className="avatar-35 rounded-circle img-fluid"/>
-                                                    </div>
-                                                    <div className="comment-data-block ms-3">
-                                                        <h6>Paul Molive</h6>
-                                                        <p className="mb-0">Lorem ipsum dolor sit amet</p>
-                                                        <div className="d-flex flex-wrap align-items-center comment-activity">
-                                                            <Link to="#">like</Link>
-                                                            <Link to="#">reply</Link>
-                                                            <Link to="#">translate</Link>
-                                                            <span> 5 min </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                        <form className="comment-text d-flex align-items-center mt-3" >
-                                            <input type="text" className="form-control rounded" placeholder="Enter Your Comment"/>
-                                            <div className="comment-attagement d-flex">
-                                                <Link to="#"><i className="ri-link me-3"></i></Link>
-                                                <Link to="#"><i className="ri-user-smile-line me-3"></i></Link>
-                                                <Link to="#"><i className="ri-camera-line me-3"></i></Link>
-                                            </div>
-                                        </form>
                                     </div>
                                 </Card.Body>
                             </Card>
-                        
+                        ))}
                         </Col>
+    ):(
+      <p>Loading..</p>
+    )}
+    </>
   )
 };
 
