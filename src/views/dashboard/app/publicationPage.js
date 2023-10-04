@@ -6,9 +6,7 @@ import {Row, Col, Container, Dropdown } from 'react-bootstrap';
 import ShareOffcanvas from '../../../components/share-offcanvas';
 import Like from './like';
 import { usePublication } from "@lens-protocol/react-web";
-import user01 from '../../../assets/images/user/01.jpg'
-import user02 from '../../../assets/images/user/02.jpg'
-import user03 from '../../../assets/images/user/03.jpg'
+import user01 from '../../../assets/images/user/01.jpg';
 
 
 const PublicationPage = () => {
@@ -22,7 +20,6 @@ const PublicationPage = () => {
 
   useEffect(() => {
       if (comments) {
-         console.log(comments)
         setComments(comments)
       }
  }, []);
@@ -176,7 +173,7 @@ const PublicationPage = () => {
                                                       )}
                                                      
                                                    </div>
-                                                {/* <ShareOffcanvas /> */}
+                                                <ShareOffcanvas />
                                                 </div>
                                                 <form className="comment-text d-flex align-items-center mt-3" >
                                                    <input type="text" className="form-control rounded" placeholder="Enter Your Comment"/>
@@ -227,6 +224,7 @@ const PublicationPage = () => {
                                                    <hr />
                                                 </ul>
                                             ))}
+                                            {hasMore && <p>Loading more comments...</p>}
                                           </div>
                                        ) : (
                                         <p>No comments...</p>

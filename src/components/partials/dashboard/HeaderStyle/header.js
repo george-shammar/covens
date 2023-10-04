@@ -1380,7 +1380,7 @@ const Header = () => {
               
            {address && address.length > 0 ? (
               <>
-                  <Button className="mt-3 mb-5 pt-0 pb-0 mx-0" variant="primary" onClick={() => open()}>
+                  <Button className="mt-3 mb-5 pt-1 pb-2 mx-0" variant="primary" onClick={() => open()}>
                     {String(address).substring(0, 2) +
                       "..." +
                       String(address).substring(40)}
@@ -1392,6 +1392,7 @@ const Header = () => {
                       <div className="caption d-none d-lg-block mb-3 mx-2">
                           <h6 className="line-height">{data.handle}</h6>
                         </div>
+   {console.log(data)}
                       {data?.picture?.__typename === "MediaSet" && (
                         <Image
                         src={image}
