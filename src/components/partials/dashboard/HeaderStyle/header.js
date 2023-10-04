@@ -90,7 +90,7 @@ const Header = () => {
     } else if (loading) {
       <p>loading..</p>
     } else {
-      <p>{error.message}</p>
+      <p></p>
     }
   }
 

@@ -5,7 +5,7 @@ import {Link, useParams} from 'react-router-dom';
 import {Row, Col, Container, Dropdown } from 'react-bootstrap';
 import ShareOffcanvas from '../../../components/share-offcanvas';
 import Like from './like';
-import { useProfile, usePublication, Profile } from "@lens-protocol/react-web";
+import { usePublication } from "@lens-protocol/react-web";
 import user01 from '../../../assets/images/user/01.jpg'
 import user02 from '../../../assets/images/user/02.jpg'
 import user03 from '../../../assets/images/user/03.jpg'
@@ -14,7 +14,6 @@ import user03 from '../../../assets/images/user/03.jpg'
 const PublicationPage = () => {
   const { publicationId } = useParams();
   const [coms, setComments] = useState();
-  // const { profile } = useProfile({ profileId});
 
   const { data: comments, hasMore, next } = useComments({ commentsOf: publicationId });
   const { data: publication, loading } = usePublication({
@@ -23,11 +22,10 @@ const PublicationPage = () => {
 
   useEffect(() => {
       if (comments) {
+         console.log(comments)
         setComments(comments)
       }
  }, []);
-
- console.log(publication)
 
   function calculateTimeElapsed(timestamp) {
     const eventTime = new Date(timestamp);
@@ -57,8 +55,6 @@ const PublicationPage = () => {
        }
  }
 
- console.log(coms)
-
     return (
         <>
             <div id='content-page' className='content-page'>
@@ -72,18 +68,19 @@ const PublicationPage = () => {
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
-                                                      {publication.profile.coverPicture.original.url ? (
+                                                      {publication && publication.profile.coverPicture.original.url ? (
                                                             <img loading="lazy" className="rounded-circle  avatar-60" src={publication.profile.coverPicture.original.url} alt={publication.profile.handle}/>
                                                       ) : (
-                                                         <img loading="lazy" className="rounded-circle  avatar-60" src={user01} alt={publication.profile.handle}/>
+                                                         <img loading="lazy" className="rounded-circle  avatar-60" src={user01} alt=""/>
                                                       )}
                                                    </div>
                                                    <div className="w-100">
                                                       <div className="d-flex justify-content-between flex-wrap">
                                                          <div>
-                                                            <h5 className="mb-0 d-inline-block">{publication.profile.handle}</h5>
+                                                            
                                                             {!loading && publication.metadata ? (
                                                                <>
+                                                               <h5 className="mb-0 d-inline-block">{publication.profile.handle}</h5>
                                                                   <p className="ms-1 mb-0 d-inline-block">{publication.metadata.locale}</p>
                                                                   <p className="mb-0">{calculateTimeElapsed(publication.createdAt)}</p>
                                                                   <p>{publication.metadata.content}</p>
@@ -172,9 +169,14 @@ const PublicationPage = () => {
                                              <div className="comment-area mt-3">
                                                 <div className="d-flex justify-content-between align-items-center flex-wrap">
                                                    <div className="like-block position-relative d-flex align-items-center">
+                                                      {publication ? (
+                                                         <Like publication={publication}/>
+                                                      ):(
+                                                         <p></p>
+                                                      )}
                                                      
                                                    </div>
-                                                <ShareOffcanvas />
+                                                {/* <ShareOffcanvas /> */}
                                                 </div>
                                                 <form className="comment-text d-flex align-items-center mt-3" >
                                                    <input type="text" className="form-control rounded" placeholder="Enter Your Comment"/>
@@ -199,8 +201,8 @@ const PublicationPage = () => {
                                                    <li className="mb-2">
                                                       <div className="d-flex flex-wrap">
                                                          <div className="user-img">
-                                                            {!loading && com.profile.picture.original.url ? (
-                                                               <img loading="lazy" src={com.profile.picture.original.url} alt="" className="avatar-35 rounded-circle img-fluid"/>
+                                                            {!loading && com ? (
+                                                               <img loading="lazy" src={com.profile.coverPicture.original.url} alt="" className="avatar-35 rounded-circle img-fluid"/>
                                                             ):(
                                                                <img loading="lazy" src={user01} alt="" className="avatar-35 rounded-circle img-fluid"/>
                                                             )}
@@ -222,6 +224,7 @@ const PublicationPage = () => {
                                                          </div>
                                                       </div>
                                                    </li>
+                                                   <hr />
                                                 </ul>
                                             ))}
                                           </div>

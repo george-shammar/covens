@@ -113,10 +113,8 @@ const UserProfile =() =>{
 
     useEffect(() => {
       publications = publications?.map((publication) => {
-         if (publication.__typename === "Mirror") {
-           return publication.mirrorOf;
-         } else {
-           return publication;
+         if (publication.__typename === "Post") {
+            return publication;
          }
        });
    }, []);

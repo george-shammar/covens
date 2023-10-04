@@ -48,9 +48,14 @@ const Like =({id, publication}) => {
       </div>
          <div className="total-like-block ms-2 me-3">
             <Dropdown>
-              <Dropdown.Toggle as={CustomToggle}  id="post-option" >
-                140 Likes
-              </Dropdown.Toggle>
+              {publication.stats ? (
+                <Dropdown.Toggle as={CustomToggle}  id="post-option" >
+                  {publication.stats.totalUpvotes}
+                </Dropdown.Toggle>
+              ):(
+                <p></p>
+              )}
+              
                 <Dropdown.Menu>
                   <Dropdown.Item  to="#">Max Emum</Dropdown.Item>
                   <Dropdown.Item  to="#">Bill Yerds</Dropdown.Item>
@@ -65,9 +70,13 @@ const Like =({id, publication}) => {
 
           <div className="total-comment-block">
             <Dropdown>
-              <Dropdown.Toggle as={CustomToggle}  id="post-option" >
-                56 comments
-              </Dropdown.Toggle>
+            {publication.stats ? (
+                <Dropdown.Toggle as={CustomToggle}  id="post-option" >
+                  {publication.stats.totalAmountOfComments} comments
+                </Dropdown.Toggle>
+              ):(
+                <p></p>
+              )}
                 <Dropdown.Menu>
                 <Dropdown.Item  to="#">Max Emum</Dropdown.Item>
                 <Dropdown.Item  to="#">Bill Yerds</Dropdown.Item>
