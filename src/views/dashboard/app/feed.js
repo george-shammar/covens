@@ -1,6 +1,25 @@
 import { useExplorePublications } from '@lens-protocol/react-web';
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import { Row, Col, Container, Dropdown, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap';
+import Card from '../../../components/Card';
+import ShareOffcanvas from '../../../components/share-offcanvas';
+import CustomToggle from '../../../components/dropdowns'
 
+
+import user01 from '../../../assets/images/user/01.jpg';
+import user2 from '../../../assets/images/user/02.jpg';
+import user3 from '../../../assets/images/user/03.jpg';
+import icon1 from '../../../assets/images/icon/01.png'
+import icon2 from '../../../assets/images/icon/02.png'
+import icon3 from '../../../assets/images/icon/03.png'
+import icon4 from '../../../assets/images/icon/04.png'
+import icon5 from '../../../assets/images/icon/05.png'
+import icon6 from '../../../assets/images/icon/06.png'
+import icon7 from '../../../assets/images/icon/07.png'
+import p2 from '../../../assets/images/page-img/p2.jpg';
+import p3 from '../../../assets/images/page-img/p3.jpg';
+import p1 from '../../../assets/images/page-img/p1.jpg';
 
 const Feed = () => {
   const { data, loading, hasMore, next } = useExplorePublications();
