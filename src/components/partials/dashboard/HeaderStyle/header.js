@@ -1392,7 +1392,6 @@ const Header = () => {
                       <div className="caption d-none d-lg-block mb-3 mx-2">
                           <h6 className="line-height">{data.handle}</h6>
                         </div>
-   {console.log(data)}
                       {data?.picture?.__typename === "MediaSet" && (
                         <Image
                         src={image}
@@ -1400,9 +1399,7 @@ const Header = () => {
                         // alt={data.handle}
                         loading="lazy" />
                       )}
-                        
                       </Dropdown.Toggle>
-                      
                       <Dropdown.Menu className="sub-drop caption-menu">
                         <Card className="shadow-none m-0">
                           <Card.Header>
