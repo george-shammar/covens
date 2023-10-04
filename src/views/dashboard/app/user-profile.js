@@ -649,17 +649,9 @@ const UserProfile =() =>{
                                                    </div>
                                                 <ShareOffcanvas />
                                                 </div>
-                                                <form className="comment-text d-flex align-items-center mt-3" >
-                                                   <input type="text" className="form-control rounded" placeholder="Enter Your Comment"/>
-                                                   <div className="comment-attagement d-flex">
-                                                      <Link to="#" className="material-symbols-outlined me-3 link">insert_link</Link>
-                                                      <Link to="#" className="material-symbols-outlined  me-3">sentiment_satisfied</Link>
-                                                      <Link to="#" className="material-symbols-outlined  me-3">photo_camera</Link>
-                                                   </div>
-                                                </form>
                                              </div>
                                           </div>
-                                         
+                                         <hr />
                                        </Card.Body>
                                     </Link>
                                      ))}
