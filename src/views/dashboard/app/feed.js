@@ -58,12 +58,17 @@ const Feed = () => {
     {!loading && data ? (
       <Col sm={12}>
         {data?.map((post, index) => (
+              <Link to={`/dashboard/app/${post.id}`}>
                             <Card className=" card-block card-stretch card-height" key={index}>
                                 <Card.Body>
                                     <div className="user-post-data">
                                         <div className="d-flex justify-content-between">
                                             <div className="me-3">
-                                                <img className="rounded-circle img-fluid" src={user01} alt=""/>
+                                                {post.profile.picture != null && post.profile.picture.original && post.profile.picture.original.url ? (
+                                                    <img className="rounded-circle img-fluid" style={{ width: 60 }} src={post.profile.picture.original.url} alt=""/>
+                                                ):(
+                                                    <img className="rounded-circle img-fluid" src={user01} alt=""/>
+                                                )}
                                             </div>
                                             <div className="w-100">
                                                 <div className="d-flex justify-content-between">
@@ -164,11 +169,13 @@ const Feed = () => {
                                     </div>
                                 </Card.Body>
                             </Card>
+                        </Link>
                         ))}
                         </Col>
     ):(
       <p>Loading..</p>
     )}
+     {hasMore && <p>Loading more...</p>}
     </>
   )
 };

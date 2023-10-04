@@ -65,8 +65,8 @@ const PublicationPage = () => {
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
-                                                      {publication && publication.profile.coverPicture.original.url ? (
-                                                            <img loading="lazy" className="rounded-circle  avatar-60" src={publication.profile.coverPicture.original.url} alt={publication.profile.handle}/>
+                                                      {publication && publication.profile.picture.original.url && publication.profile.picture != null ? (
+                                                            <img loading="lazy" className="rounded-circle  avatar-60" src={publication.profile.picture.original.url} alt=""/>
                                                       ) : (
                                                          <img loading="lazy" className="rounded-circle  avatar-60" src={user01} alt=""/>
                                                       )}
@@ -187,9 +187,6 @@ const PublicationPage = () => {
                                           </div>
                                          
                                        </Card.Body>
-
-
-
                                        <hr/>
                                        {!loading && coms ? (
                                           <div>
@@ -198,8 +195,8 @@ const PublicationPage = () => {
                                                    <li className="mb-2">
                                                       <div className="d-flex flex-wrap">
                                                          <div className="user-img">
-                                                            {!loading && com ? (
-                                                               <img loading="lazy" src={com.profile.coverPicture.original.url} alt="" className="avatar-35 rounded-circle img-fluid"/>
+                                                            {!loading && com && com.profile.picture != null ? (
+                                                               <img loading="lazy" src={com.profile.picture.original.url} alt="" className="avatar-35 rounded-circle img-fluid"/>
                                                             ):(
                                                                <img loading="lazy" src={user01} alt="" className="avatar-35 rounded-circle img-fluid"/>
                                                             )}
