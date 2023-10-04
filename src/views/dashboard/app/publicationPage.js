@@ -1,6 +1,5 @@
 import React, { useState, useEffect} from 'react';
 import Card from '../../../components/Card'
-import Comment from './comment';
 import { useComments } from '@lens-protocol/react-web';
 import {Link, useParams} from 'react-router-dom';
 import {Row, Col, Container, Dropdown } from 'react-bootstrap';
@@ -24,10 +23,11 @@ const PublicationPage = () => {
 
   useEffect(() => {
       if (comments) {
-        console.log(comments)
         setComments(comments)
       }
  }, []);
+
+ console.log(publication)
 
   function calculateTimeElapsed(timestamp) {
     const eventTime = new Date(timestamp);
@@ -72,18 +72,16 @@ const PublicationPage = () => {
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
-                                                      {/* {profile.picture ? (
-                                                            <img loading="lazy" className="rounded-circle  avatar-60" src={profile.picture.original.url} alt={profile.handle}/>
+                                                      {publication.profile.coverPicture.original.url ? (
+                                                            <img loading="lazy" className="rounded-circle  avatar-60" src={publication.profile.coverPicture.original.url} alt={publication.profile.handle}/>
                                                       ) : (
-                                                         <img loading="lazy" className="rounded-circle  avatar-60" src={user01} alt={profile.handle}/>
-                                                      )} */}
-                                                      
+                                                         <img loading="lazy" className="rounded-circle  avatar-60" src={user01} alt={publication.profile.handle}/>
+                                                      )}
                                                    </div>
                                                    <div className="w-100">
                                                       <div className="d-flex justify-content-between flex-wrap">
                                                          <div>
-                                                            {/* <h5 className="mb-0 d-inline-block">{profile.handle}</h5> */}
-
+                                                            <h5 className="mb-0 d-inline-block">{publication.profile.handle}</h5>
                                                             {!loading && publication.metadata ? (
                                                                <>
                                                                   <p className="ms-1 mb-0 d-inline-block">{publication.metadata.locale}</p>
@@ -197,14 +195,18 @@ const PublicationPage = () => {
                                        {!loading && coms ? (
                                           <div>
                                             {coms.map((com, index) => (
-                                              <ul className="post-comments p-0 m-0">
+                                              <ul className="post-comments p-0 m-0" key={index}>
                                                    <li className="mb-2">
                                                       <div className="d-flex flex-wrap">
                                                          <div className="user-img">
-                                                            <img loading="lazy" src={user02} alt="userimg" className="avatar-35 rounded-circle img-fluid"/>
+                                                            {!loading && com.profile.picture.original.url ? (
+                                                               <img loading="lazy" src={com.profile.picture.original.url} alt="" className="avatar-35 rounded-circle img-fluid"/>
+                                                            ):(
+                                                               <img loading="lazy" src={user01} alt="" className="avatar-35 rounded-circle img-fluid"/>
+                                                            )}
                                                          </div>
                                                          <div className="comment-data-block ms-3">
-                                                            <h6>Monty Carlo</h6>
+                                                            <h6>{com.profile.handle}</h6>
                                                             <p className="mb-0">{com.metadata.content}</p>
                                                             {com.metadata.image ? (
                                                                 <img loading="lazy" src={com.metadata.image} alt="post" className="img-fluid w-100" />
