@@ -1380,7 +1380,7 @@ const Header = () => {
               
            {address && address.length > 0 ? (
               <>
-                  <Button className="mt-3 mb-5 pt-1 pb-2 mx-0" variant="primary" onClick={() => open()}>
+                  <Button className="mt-md-3 mb-md-5 pt-1 pb-2 mx-0" variant="primary" onClick={() => open()}>
                     {String(address).substring(0, 2) +
                       "..." +
                       String(address).substring(40)}
