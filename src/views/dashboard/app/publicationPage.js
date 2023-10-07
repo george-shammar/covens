@@ -65,7 +65,7 @@ const PublicationPage = () => {
                                              <div className="user-post-data pb-3">
                                                 <div className="d-flex justify-content-between">
                                                    <div className="me-3">
-                                                      {publication && publication.profile.picture.original.url && publication.profile.picture != null ? (
+                                                      {publication && publication.profile.picture != null && publication.profile.picture.original.url ? (
                                                             <img loading="lazy" className="rounded-circle  avatar-60" src={publication.profile.picture.original.url} alt=""/>
                                                       ) : (
                                                          <img loading="lazy" className="rounded-circle  avatar-60" src={user01} alt=""/>

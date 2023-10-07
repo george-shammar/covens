@@ -30,10 +30,13 @@ const CreateProfile = () => {
 
   async function onSubmit() {
     const {formHandle} = formInput;
+
     if (formHandle) {
-      await create(formHandle);
+      await create({formHandle});
+      // console.log(isValidHandle())
       console.log("======create profile called======")
     } else {
+      console.log("did not work")
       console.log(error)
     }
   }
@@ -127,19 +130,9 @@ const CreateProfile = () => {
           <Form>
             <Form.Group className="form-group">
               <Form.Label>Handle:</Form.Label>
-              <Form.Control  onChange={e => updateFormInput({...formInput, formHandle: e.target.value})}  type="text" id="email1" disabled={isPending} required/>
-              {/* <Form.Control 
-                onChange={e => {
-                if (isValidHandle(e.target.value)) {
-                  setHandle(e.target.value);
-                } else {
-                  setHandle(null);
-                }
-                }}
-                type="text" id="email1"
-                disabled={isPending}
-                required
-              /> */}
+              <Form.Control  
+                onChange={e => updateFormInput({...formInput, formHandle: e.target.value})}  type="text" id="email1" disabled={isPending} 
+                required/>
             </Form.Group>
           </Form>
             
