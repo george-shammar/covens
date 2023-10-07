@@ -61,7 +61,7 @@ const Index = () => {
         <div id="content-page" className="content-page">
         <Container>
             <Row>
-                <Col lg={8} className="row m-0 p-0">
+                <Col lg={8} className="row m-0 pb-0">
                 {address && address.length > 0 ? (
                     // <Col sm={12} >
                     //     <Card id="post-modal-data" className="card-block card-stretch card-height">
@@ -229,8 +229,8 @@ const Index = () => {
                     //             </Modal.Body>
                     //         </Modal>
                     //     </Card>
-                    // </Col> 
-                    <p></p>
+                    // </Col>
+                    <></>
                     ) : (
                         <p>As a Visitor, you have view-only right. Create a profile to engage.</p>
                     )}
