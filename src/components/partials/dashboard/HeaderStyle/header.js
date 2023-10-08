@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import React, { useState, useEffect } from "react";
 import {
   Dropdown,
@@ -53,7 +54,7 @@ const Header = () => {
   const { address } = useAccount();
   const { execute: login, isPending: isLoginPending } = useWalletLogin();
   const { execute: logout } = useWalletLogout();
-  const { data, error, loading } = useActiveProfile();
+  const { data, loading } = useActiveProfile();
   const { isConnected } = useAccount();
   const { disconnectAsync } = useDisconnect();
   const [image, setImage] = useState("");
@@ -1516,3 +1517,4 @@ const Header = () => {
 };
 
 export default Header;
+/* eslint-enable*/

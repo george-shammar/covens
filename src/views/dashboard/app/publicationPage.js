@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import React, { useState, useEffect} from 'react';
 import Card from '../../../components/Card'
 import { useComments } from '@lens-protocol/react-web';
@@ -236,3 +237,4 @@ const PublicationPage = () => {
 }
 
 export default PublicationPage
+/* eslint-enable*/

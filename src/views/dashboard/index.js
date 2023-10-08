@@ -1,50 +1,23 @@
+/* eslint-disable*/
 import React, {useState}  from 'react'
-import { Row, Col, Container, Dropdown, OverlayTrigger, Tooltip, Modal} from 'react-bootstrap';
+import { Row, Col, Container, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Card from '../../components/Card';
 import CustomToggle from '../../components/dropdowns'
-import { useWeb3Modal } from '@web3modal/react';
 import { useAccount } from 'wagmi';
 import { useExploreProfiles } from '@lens-protocol/react-web';
 import Feed from './app/feed';
 
 //image
-import user1 from '../../assets/images/user/1.jpg'
 import user01 from '../../assets/images/user/01.jpg'
 import user2 from '../../assets/images/user/02.jpg'
-import user3 from '../../assets/images/user/03.jpg'
-import user4 from '../../assets/images/user/04.jpg'
-import img1 from '../../assets/images/small/07.png'
-import img2 from '../../assets/images/small/08.png'
-import img3 from '../../assets/images/small/09.png'
-import img4 from '../../assets/images/small/10.png'
-import img5 from '../../assets/images/small/11.png'
-import img6 from '../../assets/images/small/12.png'
-import img7 from '../../assets/images/small/13.png'
-import img8 from '../../assets/images/small/14.png'
-import p1 from '../../assets/images/page-img/p1.jpg'
-import s1 from '../../assets/images/page-img/s1.jpg'
 import s2 from '../../assets/images/page-img/s2.jpg'
-import s3 from '../../assets/images/page-img/s3.jpg'
 import s4 from '../../assets/images/page-img/s4.jpg'
 import s5 from '../../assets/images/page-img/s5.jpg'
-import p4 from '../../assets/images/page-img/p4.jpg'
-import p5 from '../../assets/images/page-img/p5.jpg'
 import img42 from '../../assets/images/page-img/42.png'
 import img9 from '../../assets/images/small/img-1.jpg'
 import img10 from '../../assets/images/small/img-2.jpg'
 import loader from '../../assets/images/page-img/page-load-loader.gif'
-import icon1 from '../../assets/images/icon/01.png'
-import icon2 from '../../assets/images/icon/02.png'
-import icon3 from '../../assets/images/icon/03.png'
-import icon4 from '../../assets/images/icon/04.png'
-import icon5 from '../../assets/images/icon/05.png'
-import icon6 from '../../assets/images/icon/06.png'
-import icon7 from '../../assets/images/icon/07.png'
-import p2 from '../../assets/images/page-img/p2.jpg';
-import p3 from '../../assets/images/page-img/p3.jpg';
-import ShareOffcanvas from '../../components/share-offcanvas';
-
 
 const Index = () => {
     const [show, setShow] = useState(false);
@@ -398,3 +371,4 @@ const Index = () => {
 }
 
 export default Index
+/* eslint-enable*/
