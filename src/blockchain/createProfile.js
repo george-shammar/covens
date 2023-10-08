@@ -3,6 +3,8 @@ import {Card, Button, Form, Modal} from 'react-bootstrap';
 import { NFTStorage, File } from 'nft.storage';
 import { Web3Storage } from 'web3.storage';
 import { isValidHandle, useCreateProfile } from '@lens-protocol/react-web';
+import { isRelayerResult } from "@lens-protocol/client";
+import { LensClient, development } from "@lens-protocol/client";
 const ethers = require("ethers");
 const NFT_STORAGE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDMyNTlEMWEzNTNEMzgyNjQ4MDVmNkY4Y2NjMTY0RThFODQzM0I0MDYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTYzNzkzOTM1Njc5NywibmFtZSI6IkF6YW5pYSJ9.Tn3kou1OKA09gdsp0pduKzFUJGAVQ8KXk1-44pLWH9w";
 const ERROR_CODE_TX_REJECTED_BY_USER = 4001;
@@ -20,6 +22,9 @@ const CreateProfile = () => {
   const { execute: create, error, isPending } = useCreateProfile();
   const [handle, setHandle] = useState(null);
 
+  const lensClient = new LensClient({
+    environment: development
+  });
   // const onSubmit = async (e) => {
   //   e.preventDefault();
   //   // if (!handle) return;
@@ -31,15 +36,30 @@ const CreateProfile = () => {
   async function onSubmit() {
     const {formHandle} = formInput;
 
-    if (formHandle) {
-      await create({formHandle});
-      // console.log(isValidHandle())
-      console.log("======create profile called======")
-    } else {
-      console.log("did not work")
-      console.log(error)
+    // if (formHandle) {
+    //   await create({formHandle});
+    //   // console.log(isValidHandle())
+    //   console.log("======create profile called======")
+    // } else {
+    //   console.log("did not work")
+    //   console.log(error)
+    // }
+    const profileCreateResult = await lensClient.profile.create({ 
+      handle: formHandle,
+       // other request args 
+    });
+
+    const profileCreateResultValue = profileCreateResult.unwrap();
+    if (!isRelayerResult(profileCreateResultValue)) {
+      console.log(`Something went wrong`, profileCreateResultValue);
+      return;
     }
+
+    console.log(
+      `Transaction was successfuly broadcasted with txId ${profileCreateResultValue.txId}`
+    );
   }
+
 
   // function jsonFile(filename, obj) {
   //   return new File([JSON.stringify(obj)], filename)
