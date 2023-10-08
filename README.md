@@ -13,6 +13,16 @@ The economic model and the tokenomics of Coven is being designed for a sustainab
 See the live application here:
 
 ## Screenshots
+Timeline
+
+![Timeline](./feed.png)
+
+Profile
+
+![Profile](./profile.png)
+
+Dark Mode
+![Profile Dark Mode](./profile-dark.png)
 
 ## Problem Statement
 
