@@ -81,7 +81,6 @@ const Header = () => {
 
   async function configUrl() {
     if(data) {
-      console.log(data)
       const rawUrl = await data.picture.original.url
       const ipfsBaseUrl = "https://ipfs.io/ipfs/";
       const formattedString = rawUrl.replace("ipfs://", "");
