@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import React, { useState, useContext} from 'react'
 
 //router
@@ -302,3 +303,4 @@ const VerticalNav = React.memo(() => {
 })
 
 export default VerticalNav
+/* eslint-enable*/

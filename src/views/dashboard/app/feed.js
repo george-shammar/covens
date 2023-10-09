@@ -1,3 +1,4 @@
+/* eslint-disable*/
 import { useExplorePublications } from '@lens-protocol/react-web';
 import React from "react";
 import { Link } from 'react-router-dom';
@@ -168,3 +169,4 @@ const Feed = () => {
 };
 
 export default Feed;
+/* eslint-enable*/

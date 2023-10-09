@@ -86,4 +86,4 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   </StrictMode>
 );
 
-/* eslint-disable*/
+/* eslint-enable*/

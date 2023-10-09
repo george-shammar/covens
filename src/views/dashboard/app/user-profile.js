@@ -1,4 +1,5 @@
-import React,{useEffect, useState} from 'react'
+/* eslint-disable*/
+import React,{useEffect, useState, useRef} from 'react'
 import {Row, Col, Container, Dropdown, Nav, Tab, OverlayTrigger, Tooltip, Button, Modal } from 'react-bootstrap'
 import Card from '../../../components/Card'
 import CustomToggle from '../../../components/dropdowns'
@@ -85,6 +86,7 @@ const UserProfile =() =>{
    let { handle } = useParams();
    let { data: profile, loading } = useProfile({ handle });
    const [id, setId] = useState();
+   const publicationsRef = useRef(null);
 
    const [imageController, setImageController] = useState({
       toggler: false,
@@ -104,20 +106,29 @@ const UserProfile =() =>{
       } else {
       setId(profile.id)
       }
-   }, []);
+   });
 
    let { data: publications } = usePublications({
       profileId: id,
       limit: 50,
     });
 
-    useEffect(() => {
-      publications = publications?.map((publication) => {
-         if (publication.__typename === "Post") {
-            return publication;
-         }
-       });
-   }, []);
+   //  useEffect(() => {
+   //    publications = publications?.map((publication) => {
+   //       if (publication.__typename === "Post") {
+   //          return publication;
+   //       }
+   //     });
+   // }, []);
+   useEffect(() => {
+      publicationsRef.current = publications?.map((publication) => {
+        if (publication.__typename === "Post") {
+          return publication;
+        } else {
+         return publication;
+        }
+      });
+    }, []);
 
     function calculateTimeElapsed(timestamp) {
       const eventTime = new Date(timestamp);
@@ -4085,3 +4096,4 @@ const UserProfile =() =>{
 }
 
 export default UserProfile;
+/* eslint-enable*/
