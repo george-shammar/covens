@@ -113,13 +113,6 @@ const UserProfile =() =>{
       limit: 50,
     });
 
-   //  useEffect(() => {
-   //    publications = publications?.map((publication) => {
-   //       if (publication.__typename === "Post") {
-   //          return publication;
-   //       }
-   //     });
-   // }, []);
    useEffect(() => {
       publicationsRef.current = publications?.map((publication) => {
         if (publication.__typename === "Post") {

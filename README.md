@@ -11,6 +11,10 @@ Coven leverages and customizes the Lens Protocol's social graph.
 ## Video Demo
 [Watch here:](https://www.loom.com/share/d6cf582341b54aeda4abc44c7b0d5c1d/)
 
+## Live Application
+
+[Live Application:]https://subtle-cendol-5c5a65.netlify.app/
+
 See the live application here:
 
 ## Screenshots
@@ -54,6 +58,10 @@ Follow the simple intructions below to explore the application either on the liv
 
 ## Prerequisites
 - Metamask wallet (Connected to the polygon network). Coven supports multiple wallets.
+
+### Live Application
+
+[Live Application:]https://subtle-cendol-5c5a65.netlify.app/
 
 ## Local Version
 
