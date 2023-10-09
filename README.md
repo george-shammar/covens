@@ -9,7 +9,7 @@ Coven leverages and customizes the Lens Protocol's social graph.
 ## Creating a profile on the Lens Protocol is currently gated, however other creators' posts can be seen and appreciated.
 
 ## Video Demo
-![Watch here:]("https://www.loom.com/share/d6cf582341b54aeda4abc44c7b0d5c1d")
+[Watch here:](https://www.loom.com/share/d6cf582341b54aeda4abc44c7b0d5c1d/)
 
 See the live application here:
 
